@@ -29,18 +29,19 @@ public class HelloAkkaJava {
         }
     }
 
-    public static class Greeter extends UntypedActor {
+    public static class HelloActor extends UntypedActor {
         String greeting = "";
 
         public void onReceive(Object message) {
             if (message instanceof WhoToGreet){
-                greeting = "hello, " + ((WhoToGreet) message).who;
-                System.out.print("\n\n" +greeting);
+                greeting = "\n"+ getSelf() +" say hello to " + ((WhoToGreet) message).who;
+                System.out.print("\n" +greeting);
             }
             else if (message instanceof Greet){
                 // Send the current greeting back to the sender
                 getSender().tell(new Greeting(greeting), getSelf());
-                 System.out.print("\n\n repsonse!\n" + getSender());
+                 System.out.print("\n" + getSelf() +" repsonse to " + getSender());
+                 
             }
             else unhandled(message);
         }
