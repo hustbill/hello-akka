@@ -8,9 +8,15 @@ import akka.actor.UntypedActor;
 
 public class MetaActorImpt {
 	
-	  public static class World extends UntypedActor {
+	  public static class MetaActor extends UntypedActor {
+
+		@Override
+		public void onReceive(Object arg0) throws Exception {
+			// TODO Auto-generated method stub
+			
+		}
 		  
-	  }
+	 }
 
 	  public static void main(String[] args) {
 		  String greeting = "";
