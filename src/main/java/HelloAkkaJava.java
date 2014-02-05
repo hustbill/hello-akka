@@ -28,6 +28,20 @@ public class HelloAkkaJava {
             this.message = message;
         }
     }
+    
+    static class Calculate {
+    	
+    }
+    
+    static class Result{
+    	private final double value;
+    	public Result(double value) {
+    		this.value = value;
+    	}
+    	public double getValue(){
+    		return value;
+    	}
+    }
 
     public static class HelloActor extends UntypedActor {
         String greeting = "";
@@ -42,6 +56,9 @@ public class HelloAkkaJava {
                 getSender().tell(new Greeting(greeting), getSelf());
                  System.out.print("\n" + getSelf() +" repsonse to " + getSender());
                  
+            }
+            else if (message instanceof Calculate) {
+            	
             }
             else unhandled(message);
         }
