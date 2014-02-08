@@ -1,4 +1,7 @@
 import java.io.Serializable;
+import java.util.*;
+import java.util.Enumeration;
+import java.util.HashMap;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -8,7 +11,10 @@ import akka.actor.UntypedActor;
 
 public class MetaActorImpt {
 
+
 	public static class MetaActor extends UntypedActor {
+		
+		
 		public static class Greet implements Serializable {
 			public final String who;
 
@@ -36,6 +42,9 @@ public class MetaActorImpt {
 
 		// Store the name of Actor when Actor was initialized
 		public static class Register implements Serializable {
+			
+			
+			
 			public final String who;
 
 			public Register(String who) {
@@ -60,10 +69,19 @@ public class MetaActorImpt {
 		}
 
 		String registering = "";
-
+		public HashMap map = new HashMap();
+		
 		public void onReceive(Object message) throws Exception {
 			if (message instanceof Register) {
 				registering = "Register, " + ((Register) message).who;
+				int i=1;
+				map.put( i++, getSender().toString()); //add the Actor sender() into HashMap
+				
+				//print out the old map
+				System.out.println();
+				System.out.println(map);
+				System.out.println();
+				
 				System.out.print("\n" + registering);
 			} else if (message instanceof Seperate) {
 				// Send the current greeting back to the sender
@@ -92,6 +110,17 @@ public class MetaActorImpt {
 					}
 				}
 				return null;
+			}
+			
+			public static void cooperation(HashMap map){
+				//print out the old map
+				System.out.println();
+				System.out.println(map);
+				System.out.println();
+				
+				//recreate the newMap with the constraints.
+				//... to be develop
+				
 			}
 			
 			public static void allocate(String[] args) {
@@ -207,8 +236,7 @@ public class MetaActorImpt {
 		
 	}
 
-	
-	
+		
 	public static void main(String[] args) {
 		String greeting = "";
 		// Create the 'helloakka' actor system
@@ -260,7 +288,9 @@ public class MetaActorImpt {
 
 		// Start the Calculate()
 		String[] args1 = {"helloActor", "worldActor"};
-		CSPSolver.allocate(args1);
+		//CSPSolver.allocate(args1);
+				
+		
 
 	}
 
