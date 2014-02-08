@@ -1,8 +1,12 @@
 import java.io.Serializable;
 import java.util.*;
-import java.util.Enumeration;
-import java.util.HashMap;
 
+import CSP.DefaultSolver;
+import CSP.IntVariable;
+import CSP.Network;
+import CSP.NotEquals;
+import CSP.Solution;
+import CSP.Solver;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Inbox;
@@ -288,7 +292,7 @@ public class MetaActorImpt {
 
 		// Start the Calculate()
 		String[] args1 = {"helloActor", "worldActor"};
-		//CSPSolver.allocate(args1);
+		CSPSolver.allocate(args1);
 				
 		
 

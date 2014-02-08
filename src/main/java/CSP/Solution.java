@@ -1,3 +1,4 @@
+package CSP;
 /*
  * @(#)Solution.java
  */

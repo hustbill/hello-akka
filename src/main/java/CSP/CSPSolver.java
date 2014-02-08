@@ -1,3 +1,4 @@
+package CSP;
 //This is the client program for CSPSolver
 
 public class CSPSolver {
@@ -20,7 +21,7 @@ public class CSPSolver {
 			return null;
 		}
 		
-		public static void main(String[] args) {
+		public static void allocate(String[] args) {
 			Network net = new Network();
 			IntVariable a1 = new IntVariable(net, 1, nodes, "a1");
 			IntVariable a2 = new IntVariable(net, 1, nodes, "a2");
