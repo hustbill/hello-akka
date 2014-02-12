@@ -3,6 +3,11 @@ package metaActor;
 import java.io.Serializable;
 import java.util.*;
 
+import org.junit.Test;
+
+import scala.actors.Future;
+import scala.concurrent.Await;
+import scala.concurrent.Awaitable;
 import scala.concurrent.duration.*;
 import CSP.DefaultSolver;
 import CSP.IntVariable;
@@ -22,11 +27,18 @@ import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
 import akka.remote.*;
 import akka.remote.routing.RemoteRouterConfig;
+import akka.util.Timeout;
 
 public class MetaActorImpt {
 
+	 public enum Message {
+		  DemocratVote, DemocratCountResult, RepublicanVote, RepublicanCountResult
+		}
+	 
 
 	public static class MetaActor extends UntypedActor {
+		
+	
 
 		// Store the name of Actor when Actor was initialized
 		public static class Register implements Serializable {
@@ -112,7 +124,7 @@ public class MetaActorImpt {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		String greeting = "";
 		// Create the 'helloakka' actor system
@@ -145,21 +157,29 @@ public class MetaActorImpt {
 				Duration.create("1 minute"),
 				Collections
 						.<Class<? extends Throwable>> singletonList(Exception.class));
+	
 		final ActorRef router2 = system.actorOf(Props.create(Worker.class)
 				.withRouter(
 						new RoundRobinRouter(5)
 								.withSupervisorStrategy(strategy)));
 
 
+		
+		
+		
+		
 		// Create the MetaActor
 		final ActorRef metaActor = system.actorOf(
 				Props.create(MetaActor.class), "metaActor");
 		
 		
-		// Create World Actor
+		// Create fibonacciActor
 		final ActorRef fibonacciActor = system.actorOf(
 				Props.create(FibonacciActor.class), "fibonacciActor");
-		fibonacciActor.tell(new FibonacciActor.FibonacciNumber(1),
+		
+		System.out.print("\n send message to  fibonacciActors:"
+				+ fibonacciActor.toString() + " \n ");
+		fibonacciActor.tell(new FibonacciActor.FibonacciNumber(9),
 				 metaActor);
 
 
@@ -209,6 +229,38 @@ public class MetaActorImpt {
 		// String[] args1 = {"helloActor", "worldActor"};
 		// CSPSolver.allocate(args1);
 
+		//
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public static void countVotesAsIntendedNotAsInFlorida() throws Exception {
+
+		
+		 
+		// Create the 'helloakka' actor system
+		final ActorSystem system = ActorSystem.create("customRouterSys");
+	  ActorRef routedActor = system.actorOf(
+	    Props.empty().withRouter(new VoteCountRouter()));
+	  routedActor.tell(Message.DemocratVote, ActorRef.noSender());
+	  routedActor.tell(Message.DemocratVote, ActorRef.noSender());
+	  routedActor.tell(Message.RepublicanVote, ActorRef.noSender());
+	  routedActor.tell(Message.DemocratVote, ActorRef.noSender());
+	  routedActor.tell(Message.RepublicanVote, ActorRef.noSender());
+	  Timeout timeout = new Timeout(Duration.create(1, "seconds"));
+	/*  Future<Object> democratsResult =
+	    ask(routedActor, Message.DemocratCountResult, timeout);
+	  Future<Object> republicansResult =
+	    ask(routedActor, Message.RepublicanCountResult, timeout);
+	 */
+	  //assertEquals(3, Await.result((Awaitable<T>) democratsResult, timeout.duration()));
+	  //assertEquals(2, Await.result((Awaitable<T>) republicansResult, timeout.duration()));
+	}
+
+	private Future<Object> ask(ActorRef routedActor,
+			Message democratcountresult, Timeout timeout) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
