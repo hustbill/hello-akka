@@ -63,7 +63,7 @@ public class MetaActorImpt {
 				System.out.print("\n" + registering);
 			} else if (message instanceof Seperate) {
 				// Send the current greeting back to the sender
-				getSender().tell(new Greeting(registering), getSelf());
+				//getSender().tell(new Seperate(registering), getSelf());
 				System.out.print("\n repsonse!\n" + getSender());
 			} else
 				unhandled(message);
