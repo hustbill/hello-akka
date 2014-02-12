@@ -1,12 +1,5 @@
 package metaActor;
 import java.io.Serializable;
-import java.util.concurrent.TimeUnit;
-
-import scala.concurrent.duration.Duration;
-import akka.actor.ActorRef;
-import akka.actor.ActorSystem;
-import akka.actor.Inbox;
-import akka.actor.Props;
 import akka.actor.UntypedActor;
 
 public class HelloAkkaJava {

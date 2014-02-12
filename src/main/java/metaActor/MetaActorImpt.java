@@ -144,13 +144,13 @@ public class MetaActorImpt {
 		Address addr2 = AddressFromURIString
 				.parse("akka://othersys@anotherhost:1234");
 		Address[] addresses = new Address[] { addr1, addr2 };
-		ActorRef routerRemote = system.actorOf(Props.create(Worker.class)
-				.withRouter(
-						new RemoteRouterConfig(new RoundRobinRouter(5),
-								addresses)));
+//		ActorRef routerRemote = system.actorOf(Props.create(Worker.class)
+//				.withRouter(
+//						new RemoteRouterConfig(new RoundRobinRouter(5),
+//								addresses)));
 		/* http://doc.akka.io/docs/akka/current/java/routing.html */
-		System.out.print("\n create routerRemote actos:"
-				+ routerRemote.toString() + " \n ");
+//		System.out.print("\n create routerRemote actos:"
+//				+ routerRemote.toString() + " \n ");
 
 		final SupervisorStrategy strategy = new OneForOneStrategy(
 				5,
@@ -162,18 +162,13 @@ public class MetaActorImpt {
 				.withRouter(
 						new RoundRobinRouter(5)
 								.withSupervisorStrategy(strategy)));
-
-
-		
-		
-		
-		
 		// Create the MetaActor
 		final ActorRef metaActor = system.actorOf(
 				Props.create(MetaActor.class), "metaActor");
 		
-		
 		// Create fibonacciActor
+		int i =1;
+
 		final ActorRef fibonacciActor = system.actorOf(
 				Props.create(FibonacciActor.class), "fibonacciActor");
 		
@@ -181,7 +176,6 @@ public class MetaActorImpt {
 				+ fibonacciActor.toString() + " \n ");
 		fibonacciActor.tell(new FibonacciActor.FibonacciNumber(9),
 				 metaActor);
-
 
 		// Create Hello Actor
 		final ActorRef helloActor = system.actorOf(

@@ -7,7 +7,7 @@
 		revision="1.0"
 		conf="test-internal"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, atmos-trace-compile, atmos-trace-test, atmos-dev, atmos-console, atmos-weave, atmos-sigar"
-		date="20140211173118"/>
+		date="20140212112614"/>
 	<dependencies>
 		<module organisation="com.novocode" name="junit-interface">
 			<revision name="0.10" status="release" pubdate="20130730070827" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://github.com/szeiger/junit-interface/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="9">

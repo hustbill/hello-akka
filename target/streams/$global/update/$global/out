@@ -7,7 +7,7 @@
 [0m[[0mdebug[0m] [0m== resolving dependencies for default#hello-akka_2.10;1.0 [compile][0m
 [0m[[0mdebug[0m] [0m== resolving dependencies default#hello-akka_2.10;1.0->org.scala-lang#scala-library;2.10.2 [compile->default(compile)][0m
 [0m[[0minfo[0m] [0mResolving org.scala-lang#scala-library;2.10.2 ...[0m
-[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@616a37dc[0m
+[0m[[0mdebug[0m] [0msbt-chain: Checking cache for: sbt.ivyint.MergedDescriptors@62e596c9[0m
 [0m[[0mdebug[0m] [0msbt-chain: module revision found in cache: org.scala-lang#scala-library;2.10.2[0m
 [0m[[0mdebug[0m] [0m	local: revision in cache: org.scala-lang#scala-library;2.10.2[0m
 [0m[[0mdebug[0m] [0m	found org.scala-lang#scala-library;2.10.2 in sbt-chain[0m
@@ -959,7 +959,7 @@
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] com.typesafe.console#console-solo;1.3.1!console-solo.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] org.aspectj#aspectjweaver;1.7.3!aspectjweaver.jar[0m
 [0m[[0mdebug[0m] [0m	[NOT REQUIRED] com.typesafe.atmos#atmos-sigar-libs;1.3.1!atmos-sigar-libs.jar[0m
-[0m[[0mdebug[0m] [0m:: resolution report :: resolve 421ms :: artifacts dl 17ms[0m
+[0m[[0mdebug[0m] [0m:: resolution report :: resolve 782ms :: artifacts dl 20ms[0m
 [0m[[0mdebug[0m] [0m	report for default#hello-akka_2.10;1.0 compile produced in /Users/hua.zhang/home-local/hello-akka/target/resolution-cache/reports/default-hello-akka_2.10-compile.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#hello-akka_2.10;1.0 runtime produced in /Users/hua.zhang/home-local/hello-akka/target/resolution-cache/reports/default-hello-akka_2.10-runtime.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#hello-akka_2.10;1.0 test produced in /Users/hua.zhang/home-local/hello-akka/target/resolution-cache/reports/default-hello-akka_2.10-test.xml[0m
@@ -979,5 +979,5 @@
 [0m[[0mdebug[0m] [0m	report for default#hello-akka_2.10;1.0 atmos-console produced in /Users/hua.zhang/home-local/hello-akka/target/resolution-cache/reports/default-hello-akka_2.10-atmos-console.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#hello-akka_2.10;1.0 atmos-weave produced in /Users/hua.zhang/home-local/hello-akka/target/resolution-cache/reports/default-hello-akka_2.10-atmos-weave.xml[0m
 [0m[[0mdebug[0m] [0m	report for default#hello-akka_2.10;1.0 atmos-sigar produced in /Users/hua.zhang/home-local/hello-akka/target/resolution-cache/reports/default-hello-akka_2.10-atmos-sigar.xml[0m
-[0m[[0mdebug[0m] [0m	resolve done (421ms resolve - 17ms download)[0m
+[0m[[0mdebug[0m] [0m	resolve done (782ms resolve - 20ms download)[0m
 [0m[[0minfo[0m] [0mDone updating.[0m

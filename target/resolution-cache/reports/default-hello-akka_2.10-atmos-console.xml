@@ -7,7 +7,7 @@
 		revision="1.0"
 		conf="atmos-console"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, atmos-trace-compile, atmos-trace-test, atmos-dev, atmos-console, atmos-weave, atmos-sigar"
-		date="20140211173118"/>
+		date="20140212112614"/>
 	<dependencies>
 		<module organisation="com.typesafe.console" name="console-solo">
 			<revision name="1.3.1" status="release" pubdate="20131001115508" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="0">
