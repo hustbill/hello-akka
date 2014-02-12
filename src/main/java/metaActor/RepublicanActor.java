@@ -4,7 +4,7 @@ import akka.actor.UntypedActor;
 
 public class RepublicanActor extends UntypedActor {
 	  int counter = 0;
-	  enum Message {
+	  public enum Message {
 		  DemocratVote, DemocratCountResult, RepublicanVote, RepublicanCountResult
 		}
 	 

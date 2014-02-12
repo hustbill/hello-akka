@@ -6,27 +6,19 @@ import java.util.*;
 import org.junit.Test;
 
 import scala.actors.Future;
-import scala.concurrent.Await;
-import scala.concurrent.Awaitable;
 import scala.concurrent.duration.*;
-import CSP.DefaultSolver;
+import worker.Worker;
 import CSP.IntVariable;
-import CSP.Network;
-import CSP.NotEquals;
 import CSP.Solution;
-import CSP.Solver;
 import akka.actor.Address;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.AddressFromURIString;
-import akka.actor.Inbox;
 import akka.actor.OneForOneStrategy;
 import akka.actor.Props;
 import akka.actor.SupervisorStrategy;
 import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
-import akka.remote.*;
-import akka.remote.routing.RemoteRouterConfig;
 import akka.util.Timeout;
 
 public class MetaActorImpt {
@@ -66,6 +58,8 @@ public class MetaActorImpt {
 			}
 		}
 
+		
+		
 		String registering = "";
 		public HashMap map = new HashMap();
 
@@ -73,7 +67,7 @@ public class MetaActorImpt {
 			if (message instanceof Register) {
 				registering = "Register, " + ((Register) message).who;
 				int i = 1;
-				map.put(i++, getSender().toString()); // add the Actor sender()
+				map.put(getSender().path(), getSender().path().name()); // add the Actor sender()
 														// into HashMap
 
 				// print out the old map
@@ -110,12 +104,36 @@ public class MetaActorImpt {
 			}
 			return null;
 		}
-
-		public static void cooperation(HashMap map) {
+		
+		public static void seperate(HashMap map,List<ActorRef> ConstraintsList ) {
 			// print out the old map
 			System.out.println();
 			System.out.println(map);
 			System.out.println();
+			
+			System.out.println("#2 all constraints in ConstraintsList");
+			Iterator<ActorRef> iterator_constraint = ConstraintsList.iterator();
+			while (iterator_constraint.hasNext()) {
+				System.out.println(iterator_constraint.next().path().name());
+			}
+
+			// recreate the newMap with the constraints.
+			
+
+		}
+
+
+		public static void cooperation(HashMap map, List<ActorRef> ConstraintsList) {
+			// print out the old map
+			System.out.println();
+			System.out.println(map);
+			System.out.println();
+			
+			System.out.println("#2 all constraints in ConstraintsList");
+			Iterator<ActorRef> iterator_constraint = ConstraintsList.iterator();
+			while (iterator_constraint.hasNext()) {
+				System.out.println(iterator_constraint.next());
+			}
 
 			// recreate the newMap with the constraints.
 			// ... to be develop
@@ -129,8 +147,55 @@ public class MetaActorImpt {
 		String greeting = "";
 		// Create the 'helloakka' actor system
 		final ActorSystem system = ActorSystem.create("helloakka");
+		// Create the MetaActor
+		final ActorRef metaActor = system.actorOf(
+				Props.create(MetaActor.class), "metaActor");
+		
+		
+		
+		
+		ActorRef roundRobinRouter = system.actorOf(
+				Props.create(PrintlnActor.class).withRouter(
+						new RoundRobinRouter(10)), "router");
+		
+		for (int i = 1; i <= 10; i++) {
+			roundRobinRouter.tell(i, ActorRef.noSender() );
+			//System.out.println("\n roundRobinRouter actors" + roundRobinRouter.path().name() +"\n");
+		}
+		System.out.println("\n radmonRouter actors\n");
 
-		ActorRef actor1 = system.actorOf(Props.create(Worker.class), "actor1");
+		
+		final ActorRef democratActor = system.actorOf(
+				Props.create(DemocratActor.class), "d");
+		metaActor.tell(new MetaActorImpt.MetaActor.Register("d"), democratActor);
+		
+		final ActorRef republicanActor = system.actorOf(
+				Props.create(RepublicanActor.class), "r");
+		metaActor.tell(new MetaActorImpt.MetaActor.Register("r"), republicanActor);
+		
+		final ActorRef workerActor = system.actorOf(
+				Props.create(WorkerActor.class), "W");
+		metaActor.tell(new MetaActorImpt.MetaActor.Register("W"), workerActor);
+		
+		List<ActorRef> ActorsList = Arrays.asList(new ActorRef[] { democratActor,
+				republicanActor,  workerActor});
+		
+		List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] { democratActor,
+				workerActor});
+		
+		// iterator loop
+		System.out.println("#1 all actors in ActorsList");
+		Iterator<ActorRef> iterator = ActorsList.iterator();
+		while (iterator.hasNext()) {
+			System.out.println(iterator.next());
+		}
+		
+		//seperate(HashMap map,List<ActorRef> ConstraintsList )
+		//seperate( metaActor, ConstraintsList );
+
+
+		
+/*		ActorRef actor1 = system.actorOf(Props.create(Worker.class), "actor1");
 		ActorRef actor2 = system.actorOf(Props.create(Worker.class), "actor2");
 		ActorRef actor3 = system.actorOf(Props.create(Worker.class), "actor3");
 		Iterable<String> routees = Arrays.asList(new String[] { "/user/actor1",
@@ -138,40 +203,50 @@ public class MetaActorImpt {
 		ActorRef router = system.actorOf(Props.empty().withRouter(
 				new RoundRobinRouter(routees)));
 
-		System.out.print("\n create actos:" + actor1.toString() + " \n ");
+		System.out.print("\n create actos:" + actor1.toString() + " \n ");*/
 
-		Address addr1 = new Address("akka", "remotesys", "otherhost", 1234);
+		Address addr1 = new Address("akka", "helloakka", "localhost", 1234);
 		Address addr2 = AddressFromURIString
 				.parse("akka://othersys@anotherhost:1234");
-		Address[] addresses = new Address[] { addr1, addr2 };
-		ActorRef routerRemote = system.actorOf(Props.create(Worker.class)
+		
+		
+		Address addr3 = AddressFromURIString
+				.parse("akka://my-sys/user/service-a/worker1");
+		Address[] addresses = new Address[] { addr1 };
+		
+
+		//Address[] addresses = new Address[] { addr1, addr2 };
+		/*ActorRef routerRemote = system.actorOf(Props.create(Worker.class)
 				.withRouter(
 						new RemoteRouterConfig(new RoundRobinRouter(5),
 								addresses)));
-		/* http://doc.akka.io/docs/akka/current/java/routing.html */
+		// http://doc.akka.io/docs/akka/current/java/routing.html 
 		System.out.print("\n create routerRemote actos:"
 				+ routerRemote.toString() + " \n ");
-
+*/
 		final SupervisorStrategy strategy = new OneForOneStrategy(
 				5,
 				Duration.create("1 minute"),
 				Collections
 						.<Class<? extends Throwable>> singletonList(Exception.class));
-	
+	/*
 		final ActorRef router2 = system.actorOf(Props.create(Worker.class)
 				.withRouter(
 						new RoundRobinRouter(5)
-								.withSupervisorStrategy(strategy)));
+								.withSupervisorStrategy(strategy)));*/
 
 
 		
+	  
+	   /* Set<ActorSelection> initialContacts = new HashSet<ActorSelection>();
+	    initialContacts.add(system.actorSelection("/user/receptionist"));
+	    ActorRef clusterClient = system.actorOf(ClusterClient.defaultProps(initialContacts),
+	      "clusterClient");
+	    system.actorOf(Worker.props(clusterClient, Props.create(Worker.class)), "worker");*/
 		
 		
 		
-		// Create the MetaActor
-		final ActorRef metaActor = system.actorOf(
-				Props.create(MetaActor.class), "metaActor");
-		
+
 		
 		// Create fibonacciActor
 		final ActorRef fibonacciActor = system.actorOf(
