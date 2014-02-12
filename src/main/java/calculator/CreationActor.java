@@ -21,12 +21,15 @@ public class CreationActor extends UntypedActor {
       Op.MultiplicationResult result = (Op.MultiplicationResult) message;
       System.out.printf("Mul result: %d * %d = %d\n", result.getN1(),
           result.getN2(), result.getResult());
+      
+      System.out.print("\n stop " + getSender() +"\n");
       getContext().stop(getSender());
 
     } else if (message instanceof Op.DivisionResult) {
       Op.DivisionResult result = (Op.DivisionResult) message;
       System.out.printf("Div result: %.0f / %d = %.2f\n", result.getN1(),
           result.getN2(), result.getResult());
+      System.out.print("\n stop " + getSender() +"\n");
       getContext().stop(getSender());
 
     } else {

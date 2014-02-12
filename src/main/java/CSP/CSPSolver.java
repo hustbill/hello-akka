@@ -1,5 +1,11 @@
 package CSP;
 //This is the client program for CSPSolver
+import java.io.Serializable;
+import java.util.*;
+
+//import MetaActorImpt.MetaActor.Register;
+
+
 
 public class CSPSolver {
 	static int nodes = 5;
@@ -19,6 +25,19 @@ public class CSPSolver {
 				}
 			}
 			return null;
+		}
+		
+		public static void allocate(HashMap oldMap) {
+					//map.put( i++, getSender().toString()); //add the Actor sender() into HashMap
+					
+			
+			Iterator itt = oldMap.values().iterator();
+			
+					//print out the old map
+					System.out.println();
+					System.out.println(itt + " " + oldMap);
+					System.out.println();
+					
 		}
 		
 		public static void allocate(String[] args) {

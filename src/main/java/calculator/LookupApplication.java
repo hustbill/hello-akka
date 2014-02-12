@@ -13,15 +13,28 @@ import com.typesafe.config.ConfigFactory;
 
 public class LookupApplication {
   public static void main(String[] args) {
-    if (args.length == 0 || args[0].equals("Calculator"))
+  //  if (args.length == 0 || args[0].equals("Calculator"))
       startRemoteCalculatorSystem();
-    if (args.length == 0 || args[0].equals("Lookup"))
+   // if (args.length == 0 || args[0].equals("Lookup"))
       startRemoteLookupSystem();
   }
 
   public static void startRemoteCalculatorSystem() {
     final ActorSystem system = ActorSystem.create("CalculatorSystem",
         ConfigFactory.load(("calculator")));
+    System.out.println("Started CalculatorSystem");
+    
+/*    for(int i =0 ; i< 5; i++) {
+    	 if(i!=0) {
+    	   system.actorOf(Props.create(CalculatorActor.class), "calculator"+i);
+    	    System.out.println("Create calculator actor"+i);
+    	 }
+    	 else{
+    		 system.actorOf(Props.create(CalculatorActor.class), "calculator");
+    	 }
+    		 
+    	
+    }*/
     system.actorOf(Props.create(CalculatorActor.class), "calculator");
     System.out.println("Started CalculatorSystem");
   }
