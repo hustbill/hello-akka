@@ -19,6 +19,7 @@ public class Worker extends UntypedActor {
     }
 
     public static Props createWorker() {
+    	
         return Props.create(Worker.class, new ArraySeq<Object>(0));
     }
 }

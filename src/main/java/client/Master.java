@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Master extends UntypedActor {
 
-    private long messages = 1000000;
+    private long messages = 100;
     private ActorRef workerRouter;
     private final Time time = new Time();
     private ArrayList list = new ArrayList();
@@ -37,12 +37,13 @@ public class Master extends UntypedActor {
     private void processMessages() {
         for (int i = 0; i < messages; i++) {
             workerRouter.tell(new Work(), getSelf());
+            System.out.print("\n" + workerRouter +" repsonse " );
         }
     }
 
     private void end() {
         time.end();
-        System.out.println("Done: " + time.elapsedTimeMilliseconds());
+        System.out.println("Done: " + time.elapsedTimeMilliseconds() + " Milliseconds");
         getContext().system().shutdown();
     }
 

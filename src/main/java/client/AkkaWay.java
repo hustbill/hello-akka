@@ -15,5 +15,6 @@ public class AkkaWay {
         ActorSystem system = ActorSystem.create("CalcSystem");
         ActorRef master = system.actorOf(Master.createMaster(), "master");
         master.tell(new Calculate(), ActorRef.noSender());
+        System.out.println("create CalcSystem !\n");
     }
 }
