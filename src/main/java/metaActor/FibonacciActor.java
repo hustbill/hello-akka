@@ -13,7 +13,7 @@ public class FibonacciActor extends UntypedActor {
 			FibonacciNumber fibonacciNumber = (FibonacciNumber) msg;
 			getSender().tell(fibonacci(fibonacciNumber.getNbr()), getSelf());
 
-			ActorRef roundRobinRouter = getContext().actorOf(
+		/*	ActorRef roundRobinRouter = getContext().actorOf(
 					Props.create(PrintlnActor.class).withRouter(
 							new RoundRobinRouter(100)), "router");
 			for (int i = 1; i <= 100; i++) {
@@ -21,7 +21,7 @@ public class FibonacciActor extends UntypedActor {
 				//System.out.println("\n roundRobinRouter actors" + roundRobinRouter.path().name() +"\n");
 			}
 			System.out.println("\n radmonRouter actors\n");
-
+*/
 			/*ActorRef randomRouter = getContext().actorOf(
 					Props.create(PrintlnActor.class).withRouter(
 							new RandomRouter(5)), "routerRandom");
