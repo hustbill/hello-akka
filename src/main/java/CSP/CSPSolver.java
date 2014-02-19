@@ -40,7 +40,7 @@ public class CSPSolver {
 					
 		}
 		
-		public static void allocate(String[] args) {
+		public static void main(String[] args) {
 			Network net = new Network();
 			IntVariable a1 = new IntVariable(net, 1, nodes, "a1");
 			IntVariable a2 = new IntVariable(net, 1, nodes, "a2");

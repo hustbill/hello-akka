@@ -7,9 +7,12 @@ import org.junit.Test;
 
 import scala.actors.Future;
 import scala.concurrent.duration.*;
-
+import CSP.DefaultSolver;
 import CSP.IntVariable;
+import CSP.Network;
+import CSP.NotEquals;
 import CSP.Solution;
+import CSP.Solver;
 import akka.actor.Address;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -21,9 +24,11 @@ import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
 import akka.util.Timeout;
 
-// to verify the sync between mac and windows pc.
+import java.util.Enumeration;
 
 public class MetaActorImpt {
+
+	public final static int NUMBER = 5;
 
 	public enum Message {
 		DemocratVote, DemocratCountResult, RepublicanVote, RepublicanCountResult
@@ -44,7 +49,7 @@ public class MetaActorImpt {
 		public static class Seperate implements Serializable {
 			public List<ActorRef> ConstraintsList;
 
-			public Seperate( List<ActorRef> ConstraintsList) {
+			public Seperate(List<ActorRef> ConstraintsList) {
 				this.ConstraintsList = ConstraintsList;
 			}
 
@@ -65,25 +70,23 @@ public class MetaActorImpt {
 			if (message instanceof Register) {
 				registering = "Register, " + ((Register) message).who;
 				// add the Actor sender() into HashMap
-				map.put(getSender().path(), getSender().path().name()); 
-		    	// print out the old map
-			    // System.out.println(map +"\n");
+				map.put(getSender().path(), getSender().path().name());
+				// print out the old map
+				// System.out.println(map +"\n");
 				System.out.print("\n" + registering);
 			} else if (message instanceof Seperate) {
 				// Send the current greeting back to the sender
 				System.out.print("\n Seperate!\n" + getSender());
-				//((Seperate) message).seperate(map, ((Seperate) message).ConstraintsList);
+				// ((Seperate) message).seperate(map, ((Seperate)
+				// message).ConstraintsList);
 				seperate(map, ((Seperate) message).ConstraintsList);
 			} else
 				unhandled(message);
 		}
 
-	
 	}
 
 	public static class CSPSolver {
-		static int nodes = 5;
-
 		static void rightOf(IntVariable v1, IntVariable v2) {
 			v1.equals(v2.add(1));
 		}
@@ -104,7 +107,7 @@ public class MetaActorImpt {
 		public static void cooperation(HashMap map,
 				List<ActorRef> ConstraintsList) {
 			// print out the old map
-			System.out.println();
+			System.out.println("#1.2print out the map");
 			System.out.println(map);
 			System.out.println();
 
@@ -115,33 +118,50 @@ public class MetaActorImpt {
 			}
 
 			// recreate the newMap with the constraints.
-			// ... to be develop
+			
 		}
 
 	}
 
 	public static void seperate(HashMap map, List<ActorRef> ConstraintsList) {
-		
-		
+
 		System.out.println("#3 seperate constraints in ConstraintsList");
 		Iterator<ActorRef> iterator_constraint = ConstraintsList.iterator();
 		while (iterator_constraint.hasNext()) {
 			System.out.println(iterator_constraint.next().path().name());
 		}
-		
+
 		// print out the old map
-	     System.out.print(map +"\n");
-		
-//		
-//        for (Entry<String, String> entry : map.entrySet()) {
-//            String key=entry.getKey();
-//            String value=entry.getValue();
-//            System.out.println(key + " " + value);  
-//        }
-        
-	
-		
+		System.out.print("#4 print out the old map\n");
+
+		Set map_ety = map.entrySet();
+
+		for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
+			Map.Entry ety = (Map.Entry) iter.next();
+			// System.out.println(ety.getKey() + "====" + ety.getValue());
+			System.out.println("----->" + ety.getValue());
+		}
+
 	}
+
+	
+	static void rightOf(IntVariable v1, IntVariable v2) {
+		v1.equals(v2.add(1));
+	}
+	
+	static void nextTo(IntVariable v1, IntVariable v2) {
+		v1.subtract(v2).abs().equals(1);
+	}
+	
+	static String find(int value, IntVariable[] vs, Solution solution) {
+		for (IntVariable v : vs) {
+			if (solution.getIntValue(v) == value) {
+				return v.getName();
+			}
+		}
+		return null;
+	}
+	
 	
 	public static void main(String[] args) throws Exception {
 
@@ -152,9 +172,9 @@ public class MetaActorImpt {
 		final ActorRef metaActor = system.actorOf(
 				Props.create(MetaActor.class), "metaActor");
 
-		final ActorRef democratActor[] = new ActorRef[10];
-		String[] democratNameList = new String[10];
-		for (int i = 0; i < 10; i++) {
+		final ActorRef democratActor[] = new ActorRef[NUMBER];
+		String[] democratNameList = new String[NUMBER];
+		for (int i = 0; i < NUMBER; i++) {
 			democratNameList[i] = "democrate" + i;
 			democratActor[i] = system.actorOf(
 					Props.create(DemocratActor.class), democratNameList[i]);
@@ -162,9 +182,9 @@ public class MetaActorImpt {
 					democratNameList[i]), democratActor[i]);
 		}
 
-		final ActorRef republicanActor[] = new ActorRef[10];
-		String[] republicanNameList = new String[10];
-		for (int i = 0; i < 10; i++) {
+		final ActorRef republicanActor[] = new ActorRef[NUMBER];
+		String[] republicanNameList = new String[NUMBER];
+		for (int i = 0; i < NUMBER; i++) {
 			republicanNameList[i] = "republican" + i;
 			republicanActor[i] = system.actorOf(
 					Props.create(RepublicanActor.class), republicanNameList[i]);
@@ -172,28 +192,138 @@ public class MetaActorImpt {
 					republicanNameList[i]), republicanActor[i]);
 		}
 
-		final ActorRef workerActor[] = new ActorRef[10];
-		String[] workerNameList = new String[10];
-		for (int i = 0; i < 10; i++) {
+		final ActorRef workerActor[] = new ActorRef[NUMBER];
+		String[] workerNameList = new String[NUMBER];
+		for (int i = 0; i < NUMBER; i++) {
 			workerNameList[i] = "Worker" + i;
 			workerActor[i] = system.actorOf(Props.create(WorkerActor.class),
 					workerNameList[i]);
 			metaActor.tell(new MetaActorImpt.MetaActor.Register(
 					workerNameList[i]), workerActor[i]);
-	
+
 		}
+
+		// Create several helloActors
+		final ActorRef helloActor[] = new ActorRef[NUMBER];
+		String[] helloNameList = new String[NUMBER];
+		for (int i = 0; i < NUMBER; i++) {
+			helloNameList[i] = "hello" + i;
+			helloActor[i] = system.actorOf(
+					Props.create(HelloAkkaJava.HelloActor.class),
+					helloNameList[i]);
+			metaActor.tell(new MetaActorImpt.MetaActor.Register(
+					helloNameList[i]), helloActor[i]);
+		}
+		// Create World Actor
+		final ActorRef worldActor[] = new ActorRef[NUMBER];
+		String[] worldNameList = new String[NUMBER];
+		for (int i = 0; i < NUMBER; i++) {
+			worldNameList[i] = "world" + i;
+			worldActor[i] = system.actorOf(
+					Props.create(WorldAkkaJava.World.class), worldNameList[i]);
+			metaActor.tell(new MetaActorImpt.MetaActor.Register(
+					worldNameList[i]), worldActor[i]);
+		}
+
+		Network net = new Network();
+		IntVariable[] host = new IntVariable[NUMBER];
+		IntVariable[] computation = new IntVariable[NUMBER];
+		IntVariable[] data = new IntVariable[NUMBER];
+		IntVariable[] domain = new IntVariable[NUMBER];
+		IntVariable[] ext = new IntVariable[NUMBER];
+
+		for (int i = 0; i < NUMBER; i++) {
+			host[i] = new IntVariable(net, 1, NUMBER, 
+					workerActor[i].path().name());	
+			System.out.println(host[i]);
+		
+			
+		}
+		for (int i = 0; i < NUMBER; i++) {
+			computation[i] = new IntVariable(net, 1, NUMBER, 
+											democratActor[i].path().name());
+			
+		}
+		for (int i = 0; i < NUMBER; i++) {
+			data[i] = new IntVariable(net, 1, NUMBER, 
+										republicanActor[i].path().name());
+		}
+		for (int i = 0; i < NUMBER; i++) {
+			domain[i] = new IntVariable(net, 1, NUMBER, 
+											helloActor[i].path().name());
+			//domain[i].equals(i); 
+		}
+		for (int i = 0; i < NUMBER; i++) {
+			ext[i] = new IntVariable(net, 1, NUMBER, 
+										worldActor[i].path().name());
+			//ext[i].equals(i);
+		}		
+		
+			
+		new NotEquals(net, host);
+		new NotEquals(net, computation);
+		new NotEquals(net, data);
+		new NotEquals(net, domain);
+		new NotEquals(net, ext);
+		
+		// The host 1-n lives in the Node1 to Node-n.
+		
+		host[0].equals(1);
+    	host[1].equals(2);
+		host[2].equals(3);
+		host[3].equals(4);
+		host[4].equals(5);
 		
 		
-		 List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] { democratActor[5],
-		  republicanActor[3], workerActor[2] });
-		 
-		 metaActor.tell(new MetaActorImpt.MetaActor.Seperate(ConstraintsList), workerActor[2]) ;
+		domain[0].equals(1);
+		domain[1].equals(2);
+		domain[2].equals(3);
+		domain[3].equals(4);
+		domain[4].equals(5);
 		
-		 /* ConstraintsList = Arrays.asList(new ActorRef[] { democratActor,
+		
+		//The input constraints 
+		// The b1 lives in the a1 node.
+		computation[0].equals(host[0]);
+		// The computation b3 need data c2.
+		computation[2].equals(data[1]);
+		// The b5 domains d5.
+		computation[3].equals(domain[3]);		    
+		// the a2 node need data c1.
+		data[3].equals(host[3]);
+		// the a5 node need data c3.
+		data[4].equals(host[2]);
+
+		Solver solver = new DefaultSolver(net);
+		int count = 0;
+		for (solver.start(); solver.waitNext(); solver.resume()) {
+			Solution solution = solver.getSolution();
+			count++;
+			System.out.println("Solution " + count);
+			for (int node = 1; node <= NUMBER; node++) {
+				System.out.println("\tNode " + node
+						+ ": " + find(node, host, solution)
+						+ ", " + find(node, computation, solution)
+						+ ", " + find(node, data, solution)
+						+ ", " + find(node, domain, solution)
+						+ ", " + find(node, ext, solution)
+						);
+			}
+			System.out.println();
+		}
+
+		
+//		List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
+//				democratActor[5], republicanActor[3], workerActor[2] });
+//
+//		metaActor.tell(new MetaActorImpt.MetaActor.Seperate(ConstraintsList),
+//				workerActor[2]);
+
+		/*
+		 * ConstraintsList = Arrays.asList(new ActorRef[] { democratActor,
 		 * workerActor1[i] }); // seperate(HashMap map,List<ActorRef>
 		 * ConstraintsList ) // seperate( metaActor, ConstraintsList );
-		 * metaActor.tell(new
-		 * MetaActorImpt.MetaActor.Seperate(ConstraintsList),
+		 * metaActor.tell(new MetaActorImpt.MetaActor.Seperate(ConstraintsList),
 		 * workerActor1[i]);
 		 */
 
@@ -212,12 +342,42 @@ public class MetaActorImpt {
 		 * System.out.println(iterator.next()); }
 		 */
 
-	
-
 		// Start the Calculate()
 		// String[] args1 = {"helloActor", "worldActor"};
 		// CSPSolver.allocate(args1);
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public static void countVotesAsIntendedNotAsInFlorida() throws Exception {
+
+		// Create the 'helloakka' actor system
+		final ActorSystem system = ActorSystem.create("customRouterSys");
+		ActorRef routedActor = system.actorOf(Props.empty().withRouter(
+				new VoteCountRouter()));
+		routedActor.tell(Message.DemocratVote, ActorRef.noSender());
+		routedActor.tell(Message.DemocratVote, ActorRef.noSender());
+		routedActor.tell(Message.RepublicanVote, ActorRef.noSender());
+		routedActor.tell(Message.DemocratVote, ActorRef.noSender());
+		routedActor.tell(Message.RepublicanVote, ActorRef.noSender());
+		Timeout timeout = new Timeout(Duration.create(1, "seconds"));
+		/*
+		 * Future<Object> democratsResult = ask(routedActor,
+		 * Message.DemocratCountResult, timeout); Future<Object>
+		 * republicansResult = ask(routedActor, Message.RepublicanCountResult,
+		 * timeout);
+		 */
+		// assertEquals(3, Await.result((Awaitable<T>) democratsResult,
+		// timeout.duration()));
+		// assertEquals(2, Await.result((Awaitable<T>) republicansResult,
+		// timeout.duration()));
+	}
+
+	private Future<Object> ask(ActorRef routedActor,
+			Message democratcountresult, Timeout timeout) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public static void unUsedCode() {
@@ -230,7 +390,7 @@ public class MetaActorImpt {
 		// ActorRef roundRobinRouter = system.actorOf(
 		// Props.create(PrintlnActor.class).withRouter(
 		// new RoundRobinRouter(10)), "router");
-		// for (int i = 1; i <= 10; i++) {
+		// for (int i = 0; i <= 10; i++) {
 		// roundRobinRouter.tell(i, ActorRef.noSender());
 		// // System.out.println("\n roundRobinRouter actors" +
 		// // roundRobinRouter.path().name() +"\n");
@@ -357,37 +517,4 @@ public class MetaActorImpt {
 		// System.out.print("\n Change the greeting and ask for it again!\n");
 
 	}
-
-	@SuppressWarnings("unchecked")
-	@Test
-	public static void countVotesAsIntendedNotAsInFlorida() throws Exception {
-
-		// Create the 'helloakka' actor system
-		final ActorSystem system = ActorSystem.create("customRouterSys");
-		ActorRef routedActor = system.actorOf(Props.empty().withRouter(
-				new VoteCountRouter()));
-		routedActor.tell(Message.DemocratVote, ActorRef.noSender());
-		routedActor.tell(Message.DemocratVote, ActorRef.noSender());
-		routedActor.tell(Message.RepublicanVote, ActorRef.noSender());
-		routedActor.tell(Message.DemocratVote, ActorRef.noSender());
-		routedActor.tell(Message.RepublicanVote, ActorRef.noSender());
-		Timeout timeout = new Timeout(Duration.create(1, "seconds"));
-		/*
-		 * Future<Object> democratsResult = ask(routedActor,
-		 * Message.DemocratCountResult, timeout); Future<Object>
-		 * republicansResult = ask(routedActor, Message.RepublicanCountResult,
-		 * timeout);
-		 */
-		// assertEquals(3, Await.result((Awaitable<T>) democratsResult,
-		// timeout.duration()));
-		// assertEquals(2, Await.result((Awaitable<T>) republicansResult,
-		// timeout.duration()));
-	}
-
-	private Future<Object> ask(ActorRef routedActor,
-			Message democratcountresult, Timeout timeout) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
