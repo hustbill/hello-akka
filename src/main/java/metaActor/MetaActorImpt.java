@@ -21,6 +21,8 @@ import akka.actor.UntypedActor;
 import akka.routing.RoundRobinRouter;
 import akka.util.Timeout;
 
+// to verify the sync between mac and windows pc.
+
 public class MetaActorImpt {
 
 	public enum Message {
