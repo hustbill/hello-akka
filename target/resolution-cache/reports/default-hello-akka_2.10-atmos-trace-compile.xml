@@ -7,25 +7,25 @@
 		revision="1.0"
 		conf="atmos-trace-compile"
 		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool, atmos-trace-compile, atmos-trace-test, atmos-dev, atmos-console, atmos-weave, atmos-sigar"
-		date="20140218172053"/>
+		date="20140218172906"/>
 	<dependencies>
 		<module organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10">
-			<revision name="1.3.1" status="release" pubdate="20131001085500" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="4">
-				<metadata-artifact status="no" details="" size="3316" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\trace-akka-2.2.1_2.10\ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/trace-akka-2.2.1_2.10/1.3.1/trace-akka-2.2.1_2.10-1.3.1.pom"/>
+			<revision name="1.3.1" status="release" pubdate="20131001115500" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="4">
+				<metadata-artifact status="no" details="" size="3269" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/trace-akka-2.2.1_2.10/ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/trace-akka-2.2.1_2.10/1.3.1/ivys/ivy.xml"/>
 				<caller organisation="default" name="hello-akka_2.10" conf="atmos-trace-compile, optional, compile, runtime, runtime-internal" rev="1.3.1" rev-constraint-default="1.3.1" rev-constraint-dynamic="1.3.1" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="trace-akka-2.2.1_2.10" type="jar" ext="jar" status="no" details="" size="154296" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\trace-akka-2.2.1_2.10\jars\trace-akka-2.2.1_2.10-1.3.1.jar">
-						<origin-location is-local="false" location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/trace-akka-2.2.1_2.10/1.3.1/trace-akka-2.2.1_2.10-1.3.1.jar"/>
+					<artifact name="trace-akka-2.2.1_2.10" type="jar" ext="jar" status="no" details="" size="154296" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/trace-akka-2.2.1_2.10/jars/trace-akka-2.2.1_2.10-1.3.1.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/trace-akka-2.2.1_2.10/1.3.1/jars/trace-akka-2.2.1_2.10.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.fusesource" name="sigar">
 			<revision name="1.6.4" status="release" pubdate="20110322120456" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="15">
-				<metadata-artifact status="no" details="" size="3009" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.fusesource\sigar\ivy-1.6.4.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/fusesource/sigar/1.6.4/sigar-1.6.4.pom"/>
+				<metadata-artifact status="no" details="" size="2973" time="0" location="/Users/hua.zhang/.ivy2/cache/org.fusesource/sigar/ivy-1.6.4.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/fusesource/sigar/1.6.4/sigar-1.6.4.pom"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="1.6.4" rev-constraint-default="1.6.4" rev-constraint-dynamic="1.6.4" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="sigar" type="jar" ext="jar" status="no" details="" size="428580" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.fusesource\sigar\jars\sigar-1.6.4.jar">
+					<artifact name="sigar" type="jar" ext="jar" status="no" details="" size="428580" time="0" location="/Users/hua.zhang/.ivy2/cache/org.fusesource/sigar/jars/sigar-1.6.4.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/fusesource/sigar/1.6.4/sigar-1.6.4.jar"/>
 					</artifact>
 				</artifacts>
@@ -34,10 +34,10 @@
 		<module organisation="log4j" name="log4j">
 			<revision name="1.2.15" status="release" pubdate="20070830104116" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://logging.apache.org:80/log4j/1.2/" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="16">
 				<license name="The Apache Software License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="3564" time="0" location="C:\Users\zhouqing\.ivy2\cache\log4j\log4j\ivy-1.2.15.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/log4j/log4j/1.2.15/log4j-1.2.15.pom"/>
+				<metadata-artifact status="no" details="" size="3525" time="0" location="/Users/hua.zhang/.ivy2/cache/log4j/log4j/ivy-1.2.15.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/log4j/log4j/1.2.15/log4j-1.2.15.pom"/>
 				<caller organisation="org.fusesource" name="sigar" conf="compile, runtime" rev="1.2.15" rev-constraint-default="1.2.15" rev-constraint-dynamic="1.2.15" callerrev="1.6.4"/>
 				<artifacts>
-					<artifact name="log4j" type="jar" ext="jar" status="no" details="" size="391834" time="0" location="C:\Users\zhouqing\.ivy2\cache\log4j\log4j\jars\log4j-1.2.15.jar">
+					<artifact name="log4j" type="jar" ext="jar" status="no" details="" size="391834" time="0" location="/Users/hua.zhang/.ivy2/cache/log4j/log4j/jars/log4j-1.2.15.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/log4j/log4j/1.2.15/log4j-1.2.15.jar"/>
 					</artifact>
 				</artifacts>
@@ -46,10 +46,10 @@
 		<module organisation="com.typesafe.akka" name="akka-slf4j_2.10">
 			<revision name="2.2.1" status="release" pubdate="20130828104954" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="13">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="3065" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-slf4j_2.10\ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.2.1/akka-slf4j_2.10-2.2.1.pom"/>
+				<metadata-artifact status="no" details="" size="3029" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.10/ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.2.1/akka-slf4j_2.10-2.2.1.pom"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="akka-slf4j_2.10" type="bundle" ext="jar" status="no" details="" size="14484" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-slf4j_2.10\bundles\akka-slf4j_2.10-2.2.1.jar">
+					<artifact name="akka-slf4j_2.10" type="bundle" ext="jar" status="no" details="" size="14484" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-slf4j_2.10/bundles/akka-slf4j_2.10-2.2.1.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-slf4j_2.10/2.2.1/akka-slf4j_2.10-2.2.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -57,10 +57,10 @@
 		</module>
 		<module organisation="org.slf4j" name="slf4j-api">
 			<revision name="1.7.2" status="release" pubdate="20121011115524" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.slf4j.org" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="14">
-				<metadata-artifact status="no" details="" size="4514" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.slf4j\slf4j-api\ivy-1.7.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.pom"/>
+				<metadata-artifact status="no" details="" size="4469" time="0" location="/Users/hua.zhang/.ivy2/cache/org.slf4j/slf4j-api/ivy-1.7.2.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.pom"/>
 				<caller organisation="com.typesafe.akka" name="akka-slf4j_2.10" conf="compile, runtime" rev="1.7.2" rev-constraint-default="1.7.2" rev-constraint-dynamic="1.7.2" callerrev="2.2.1"/>
 				<artifacts>
-					<artifact name="slf4j-api" type="jar" ext="jar" status="no" details="" size="26083" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.slf4j\slf4j-api\jars\slf4j-api-1.7.2.jar">
+					<artifact name="slf4j-api" type="jar" ext="jar" status="no" details="" size="26083" time="0" location="/Users/hua.zhang/.ivy2/cache/org.slf4j/slf4j-api/jars/slf4j-api-1.7.2.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.2/slf4j-api-1.7.2.jar"/>
 					</artifact>
 				</artifacts>
@@ -69,10 +69,10 @@
 		<module organisation="com.typesafe.akka" name="akka-remote_2.10">
 			<revision name="2.2.1" status="release" pubdate="20130828105138" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="10">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="3798" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-remote_2.10\ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-remote_2.10/2.2.1/akka-remote_2.10-2.2.1.pom"/>
+				<metadata-artifact status="no" details="" size="3755" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-remote_2.10/ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-remote_2.10/2.2.1/akka-remote_2.10-2.2.1.pom"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="akka-remote_2.10" type="bundle" ext="jar" status="no" details="" size="1269820" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-remote_2.10\bundles\akka-remote_2.10-2.2.1.jar">
+					<artifact name="akka-remote_2.10" type="bundle" ext="jar" status="no" details="" size="1269820" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-remote_2.10/bundles/akka-remote_2.10-2.2.1.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-remote_2.10/2.2.1/akka-remote_2.10-2.2.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -81,10 +81,10 @@
 		<module organisation="org.uncommons.maths" name="uncommons-maths">
 			<revision name="1.2.2a" status="release" pubdate="20110408065605" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://maths.uncommons.org/" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="12">
 				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0.html"/>
-				<metadata-artifact status="no" details="" size="2771" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.uncommons.maths\uncommons-maths\ivy-1.2.2a.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/uncommons/maths/uncommons-maths/1.2.2a/uncommons-maths-1.2.2a.pom"/>
+				<metadata-artifact status="no" details="" size="2738" time="0" location="/Users/hua.zhang/.ivy2/cache/org.uncommons.maths/uncommons-maths/ivy-1.2.2a.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/uncommons/maths/uncommons-maths/1.2.2a/uncommons-maths-1.2.2a.pom"/>
 				<caller organisation="com.typesafe.akka" name="akka-remote_2.10" conf="compile, runtime" rev="1.2.2a" rev-constraint-default="1.2.2a" rev-constraint-dynamic="1.2.2a" callerrev="2.2.1"/>
 				<artifacts>
-					<artifact name="uncommons-maths" type="jar" ext="jar" status="no" details="" size="49019" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.uncommons.maths\uncommons-maths\jars\uncommons-maths-1.2.2a.jar">
+					<artifact name="uncommons-maths" type="jar" ext="jar" status="no" details="" size="49019" time="0" location="/Users/hua.zhang/.ivy2/cache/org.uncommons.maths/uncommons-maths/jars/uncommons-maths-1.2.2a.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/uncommons/maths/uncommons-maths/1.2.2a/uncommons-maths-1.2.2a.jar"/>
 					</artifact>
 				</artifacts>
@@ -93,57 +93,57 @@
 		<module organisation="io.netty" name="netty">
 			<revision name="3.6.6.Final" status="release" pubdate="20130514232624" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://netty.io/" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="11">
 				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-				<metadata-artifact status="no" details="" size="6485" time="0" location="C:\Users\zhouqing\.ivy2\cache\io.netty\netty\ivy-3.6.6.Final.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/io/netty/netty/3.6.6.Final/netty-3.6.6.Final.pom"/>
+				<metadata-artifact status="no" details="" size="6425" time="0" location="/Users/hua.zhang/.ivy2/cache/io.netty/netty/ivy-3.6.6.Final.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/io/netty/netty/3.6.6.Final/netty-3.6.6.Final.pom"/>
 				<caller organisation="com.typesafe.akka" name="akka-remote_2.10" conf="compile, runtime" rev="3.6.6.Final" rev-constraint-default="3.6.6.Final" rev-constraint-dynamic="3.6.6.Final" callerrev="2.2.1"/>
 				<artifacts>
-					<artifact name="netty" type="bundle" ext="jar" status="no" details="" size="1206119" time="0" location="C:\Users\zhouqing\.ivy2\cache\io.netty\netty\bundles\netty-3.6.6.Final.jar">
+					<artifact name="netty" type="bundle" ext="jar" status="no" details="" size="1206119" time="0" location="/Users/hua.zhang/.ivy2/cache/io.netty/netty/bundles/netty-3.6.6.Final.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/io/netty/netty/3.6.6.Final/netty-3.6.6.Final.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.typesafe.atmos" name="trace-scala-2.10.2">
-			<revision name="1.3.1" status="release" pubdate="20131001085501" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="5">
-				<metadata-artifact status="no" details="" size="2738" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\trace-scala-2.10.2\ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/trace-scala-2.10.2/1.3.1/trace-scala-2.10.2-1.3.1.pom"/>
+			<revision name="1.3.1" status="release" pubdate="20131001115501" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="5">
+				<metadata-artifact status="no" details="" size="2695" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/trace-scala-2.10.2/ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/trace-scala-2.10.2/1.3.1/ivys/ivy.xml"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="1.3.1" rev-constraint-default="1.3.1" rev-constraint-dynamic="1.3.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="trace-scala-2.10.2" type="jar" ext="jar" status="no" details="" size="28199" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\trace-scala-2.10.2\jars\trace-scala-2.10.2-1.3.1.jar">
-						<origin-location is-local="false" location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/trace-scala-2.10.2/1.3.1/trace-scala-2.10.2-1.3.1.jar"/>
+					<artifact name="trace-scala-2.10.2" type="jar" ext="jar" status="no" details="" size="28199" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/trace-scala-2.10.2/jars/trace-scala-2.10.2-1.3.1.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/trace-scala-2.10.2/1.3.1/jars/trace-scala-2.10.2.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="org.aspectj" name="aspectjrt">
-			<revision name="1.7.3" status="release" pubdate="20130621171556" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.aspectj.org" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="9">
+			<revision name="1.7.3" status="release" pubdate="20130621201556" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.aspectj.org" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="9">
 				<license name="Eclipse Public License - v 1.0" url="http://www.eclipse.org/legal/epl-v10.html"/>
-				<metadata-artifact status="no" details="" size="2412" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.aspectj\aspectjrt\ivy-1.7.3.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/org/aspectj/aspectjrt/1.7.3/aspectjrt-1.7.3.pom"/>
+				<metadata-artifact status="no" details="" size="2372" time="0" location="/Users/hua.zhang/.ivy2/cache/org.aspectj/aspectjrt/ivy-1.7.3.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/org.aspectj/aspectjrt/1.7.3/ivys/ivy.xml"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="1.7.3" rev-constraint-default="1.7.3" rev-constraint-dynamic="1.7.3" callerrev="1.3.1"/>
 				<caller organisation="com.typesafe.atmos" name="trace-scala-2.10.2" conf="compile, runtime" rev="1.7.3" rev-constraint-default="1.7.3" rev-constraint-dynamic="1.7.3" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="aspectjrt" type="jar" ext="jar" status="no" details="" size="117083" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.aspectj\aspectjrt\jars\aspectjrt-1.7.3.jar">
-						<origin-location is-local="false" location="http://repo1.maven.org/maven2/org/aspectj/aspectjrt/1.7.3/aspectjrt-1.7.3.jar"/>
+					<artifact name="aspectjrt" type="jar" ext="jar" status="no" details="" size="117083" time="0" location="/Users/hua.zhang/.ivy2/cache/org.aspectj/aspectjrt/jars/aspectjrt-1.7.3.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/org.aspectj/aspectjrt/1.7.3/jars/aspectjrt.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.typesafe.atmos" name="atmos-trace_2.10">
-			<revision name="1.3.1" status="release" pubdate="20131001085503" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="6">
-				<metadata-artifact status="no" details="" size="2810" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\atmos-trace_2.10\ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/atmos-trace_2.10/1.3.1/atmos-trace_2.10-1.3.1.pom"/>
+			<revision name="1.3.1" status="release" pubdate="20131001115503" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="6">
+				<metadata-artifact status="no" details="" size="2766" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/atmos-trace_2.10/ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/atmos-trace_2.10/1.3.1/ivys/ivy.xml"/>
 				<caller organisation="com.typesafe.atmos" name="trace-scala-2.10.2" conf="compile, runtime" rev="1.3.1" rev-constraint-default="1.3.1" rev-constraint-dynamic="1.3.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="atmos-trace_2.10" type="jar" ext="jar" status="no" details="" size="96676" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\atmos-trace_2.10\jars\atmos-trace_2.10-1.3.1.jar">
-						<origin-location is-local="false" location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/atmos-trace_2.10/1.3.1/atmos-trace_2.10-1.3.1.jar"/>
+					<artifact name="atmos-trace_2.10" type="jar" ext="jar" status="no" details="" size="96676" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/atmos-trace_2.10/jars/atmos-trace_2.10-1.3.1.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/atmos-trace_2.10/1.3.1/jars/atmos-trace_2.10.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
 		</module>
 		<module organisation="com.typesafe.atmos" name="atmos-event_2.10">
-			<revision name="1.3.1" status="release" pubdate="20131001085504" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="7">
-				<metadata-artifact status="no" details="" size="2723" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\atmos-event_2.10\ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/atmos-event_2.10/1.3.1/atmos-event_2.10-1.3.1.pom"/>
+			<revision name="1.3.1" status="release" pubdate="20131001115504" resolver="sbt-chain" artresolver="sbt-chain" homepage="" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="7">
+				<metadata-artifact status="no" details="" size="2680" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/atmos-event_2.10/ivy-1.3.1.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/atmos-event_2.10/1.3.1/ivys/ivy.xml"/>
 				<caller organisation="com.typesafe.atmos" name="atmos-trace_2.10" conf="compile, runtime" rev="1.3.1" rev-constraint-default="1.3.1" rev-constraint-dynamic="1.3.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="atmos-event_2.10" type="jar" ext="jar" status="no" details="" size="828869" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.atmos\atmos-event_2.10\jars\atmos-event_2.10-1.3.1.jar">
-						<origin-location is-local="false" location="http://repo.typesafe.com/typesafe/releases/com/typesafe/atmos/atmos-event_2.10/1.3.1/atmos-event_2.10-1.3.1.jar"/>
+					<artifact name="atmos-event_2.10" type="jar" ext="jar" status="no" details="" size="828869" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.atmos/atmos-event_2.10/jars/atmos-event_2.10-1.3.1.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.11/repository/com.typesafe.atmos/atmos-event_2.10/1.3.1/jars/atmos-event_2.10.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
@@ -151,11 +151,11 @@
 		<module organisation="com.google.protobuf" name="protobuf-java">
 			<revision name="2.4.1" status="release" pubdate="20110706123342" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://code.google.com/p/protobuf" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="8">
 				<license name="New BSD license" url="http://www.opensource.org/licenses/bsd-license.php"/>
-				<metadata-artifact status="no" details="" size="2983" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.google.protobuf\protobuf-java\ivy-2.4.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.pom"/>
+				<metadata-artifact status="no" details="" size="2948" time="0" location="/Users/hua.zhang/.ivy2/cache/com.google.protobuf/protobuf-java/ivy-2.4.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.pom"/>
 				<caller organisation="com.typesafe.akka" name="akka-remote_2.10" conf="compile, runtime" rev="2.4.1" rev-constraint-default="2.4.1" rev-constraint-dynamic="2.4.1" callerrev="2.2.1"/>
 				<caller organisation="com.typesafe.atmos" name="atmos-event_2.10" conf="compile, runtime" rev="2.4.1" rev-constraint-default="2.4.1" rev-constraint-dynamic="2.4.1" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="protobuf-java" type="jar" ext="jar" status="no" details="" size="450279" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.google.protobuf\protobuf-java\jars\protobuf-java-2.4.1.jar">
+					<artifact name="protobuf-java" type="jar" ext="jar" status="no" details="" size="450279" time="0" location="/Users/hua.zhang/.ivy2/cache/com.google.protobuf/protobuf-java/jars/protobuf-java-2.4.1.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/google/protobuf/protobuf-java/2.4.1/protobuf-java-2.4.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -164,10 +164,10 @@
 		<module organisation="com.typesafe.akka" name="akka-testkit_2.10">
 			<revision name="2.2.1" status="release" pubdate="20130828104933" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, runtime, master" position="3">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="2912" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-testkit_2.10\ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.2.1/akka-testkit_2.10-2.2.1.pom"/>
+				<metadata-artifact status="no" details="" size="2877" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-testkit_2.10/ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.2.1/akka-testkit_2.10-2.2.1.pom"/>
 				<caller organisation="default" name="hello-akka_2.10" conf="atmos-trace-compile, optional, compile, runtime, runtime-internal" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="akka-testkit_2.10" type="bundle" ext="jar" status="no" details="" size="238512" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-testkit_2.10\bundles\akka-testkit_2.10-2.2.1.jar">
+					<artifact name="akka-testkit_2.10" type="bundle" ext="jar" status="no" details="" size="238512" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-testkit_2.10/bundles/akka-testkit_2.10-2.2.1.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-testkit_2.10/2.2.1/akka-testkit_2.10-2.2.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -176,14 +176,14 @@
 		<module organisation="com.typesafe.akka" name="akka-actor_2.10">
 			<revision name="2.2.1" status="release" pubdate="20130828104634" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://akka.io" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, master(*), compile(*), runtime, runtime(*), master" position="1">
 				<license name="Apache 2" url="http://www.apache.org/licenses/LICENSE-2.0.txt"/>
-				<metadata-artifact status="no" details="" size="2671" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.2.1/akka-actor_2.10-2.2.1.pom"/>
+				<metadata-artifact status="no" details="" size="2638" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-actor_2.10/ivy-2.2.1.xml" searched="false" origin-is-local="false" origin-location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.2.1/akka-actor_2.10-2.2.1.pom"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="1.3.1"/>
 				<caller organisation="com.typesafe.akka" name="akka-testkit_2.10" conf="default, compile, runtime, master" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="2.2.1"/>
 				<caller organisation="com.typesafe.akka" name="akka-slf4j_2.10" conf="compile, runtime" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="2.2.1"/>
 				<caller organisation="com.typesafe.akka" name="akka-remote_2.10" conf="compile, runtime" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="2.2.1"/>
 				<caller organisation="default" name="hello-akka_2.10" conf="atmos-trace-compile, optional, compile, runtime, runtime-internal" rev="2.2.1" rev-constraint-default="2.2.1" rev-constraint-dynamic="2.2.1" callerrev="1.0"/>
 				<artifacts>
-					<artifact name="akka-actor_2.10" type="jar" ext="jar" status="no" details="" size="2657624" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe.akka\akka-actor_2.10\jars\akka-actor_2.10-2.2.1.jar">
+					<artifact name="akka-actor_2.10" type="jar" ext="jar" status="no" details="" size="2657624" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe.akka/akka-actor_2.10/jars/akka-actor_2.10-2.2.1.jar">
 						<origin-location is-local="false" location="http://repo1.maven.org/maven2/com/typesafe/akka/akka-actor_2.10/2.2.1/akka-actor_2.10-2.2.1.jar"/>
 					</artifact>
 				</artifacts>
@@ -192,12 +192,12 @@
 		<module organisation="com.typesafe" name="config">
 			<revision name="1.0.2" status="release" pubdate="20130703090814" resolver="sbt-chain" artresolver="sbt-chain" homepage="https://github.com/typesafehub/config" downloaded="false" searched="false" default="false" conf="compile, master(*), runtime, compile(*), runtime(*), master" position="2">
 				<license name="Apache License, Version 2.0" url="http://www.apache.org/licenses/LICENSE-2.0"/>
-				<metadata-artifact status="no" details="" size="2714" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe\config\ivy-1.0.2.xml" searched="false" origin-is-local="false" origin-location="file:////E:/akka/typesafe-activator-1.0.0//repository/com.typesafe/config/1.0.2/ivys/ivy.xml"/>
+				<metadata-artifact status="no" details="" size="2712" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe/config/ivy-1.0.2.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.0/./repository/com.typesafe/config/1.0.2/ivys/ivy.xml"/>
 				<caller organisation="com.typesafe.atmos" name="atmos-event_2.10" conf="compile, runtime" rev="1.0.2" rev-constraint-default="1.0.2" rev-constraint-dynamic="1.0.2" callerrev="1.3.1"/>
 				<caller organisation="com.typesafe.akka" name="akka-actor_2.10" conf="default, compile, runtime, master" rev="1.0.2" rev-constraint-default="1.0.2" rev-constraint-dynamic="1.0.2" callerrev="2.2.1"/>
 				<artifacts>
-					<artifact name="config" type="bundle" ext="jar" status="no" details="" size="187497" time="0" location="C:\Users\zhouqing\.ivy2\cache\com.typesafe\config\bundles\config-1.0.2.jar">
-						<origin-location is-local="false" location="file:////E:/akka/typesafe-activator-1.0.0//repository/com.typesafe/config/1.0.2/bundles/config.jar"/>
+					<artifact name="config" type="bundle" ext="jar" status="no" details="" size="187497" time="0" location="/Users/hua.zhang/.ivy2/cache/com.typesafe/config/bundles/config-1.0.2.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.0/./repository/com.typesafe/config/1.0.2/bundles/config.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
@@ -205,7 +205,7 @@
 		<module organisation="org.scala-lang" name="scala-library">
 			<revision name="2.10.2" status="release" pubdate="20130606140543" resolver="sbt-chain" artresolver="sbt-chain" homepage="http://www.scala-lang.org/" downloaded="false" searched="false" default="false" conf="default(compile), default, compile, master(*), compile(*), runtime, runtime(*), master" position="0">
 				<license name="BSD-like" url="http://www.scala-lang.org/downloads/license.html          "/>
-				<metadata-artifact status="no" details="" size="2478" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.scala-lang\scala-library\ivy-2.10.2.xml" searched="false" origin-is-local="false" origin-location="file:////E:/akka/typesafe-activator-1.0.0//repository/org.scala-lang/scala-library/2.10.2/ivys/ivy.xml"/>
+				<metadata-artifact status="no" details="" size="2476" time="0" location="/Users/hua.zhang/.ivy2/cache/org.scala-lang/scala-library/ivy-2.10.2.xml" searched="false" origin-is-local="false" origin-location="file:/Users/hua.zhang/Desktop/activator-1.0.0/./repository/org.scala-lang/scala-library/2.10.2/ivys/ivy.xml"/>
 				<caller organisation="com.typesafe.atmos" name="atmos-trace_2.10" conf="compile, runtime" rev="2.10.2" rev-constraint-default="2.10.2" rev-constraint-dynamic="2.10.2" callerrev="1.3.1"/>
 				<caller organisation="com.typesafe.atmos" name="trace-akka-2.2.1_2.10" conf="default, compile, runtime, master" rev="2.10.2" rev-constraint-default="2.10.2" rev-constraint-dynamic="2.10.2" callerrev="1.3.1"/>
 				<caller organisation="com.typesafe.akka" name="akka-testkit_2.10" conf="default, compile, runtime, master" rev="2.10.2" rev-constraint-default="2.10.2" rev-constraint-dynamic="2.10.2" callerrev="2.2.1"/>
@@ -216,8 +216,8 @@
 				<caller organisation="default" name="hello-akka_2.10" conf="atmos-trace-compile, optional, compile, runtime, runtime-internal" rev="2.10.2" rev-constraint-default="2.10.2" rev-constraint-dynamic="2.10.2" callerrev="1.0"/>
 				<caller organisation="com.typesafe.atmos" name="trace-scala-2.10.2" conf="compile, runtime" rev="2.10.2" rev-constraint-default="2.10.2" rev-constraint-dynamic="2.10.2" callerrev="1.3.1"/>
 				<artifacts>
-					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="7121818" time="0" location="C:\Users\zhouqing\.ivy2\cache\org.scala-lang\scala-library\jars\scala-library-2.10.2.jar">
-						<origin-location is-local="false" location="file:////E:/akka/typesafe-activator-1.0.0//repository/org.scala-lang/scala-library/2.10.2/jars/scala-library.jar"/>
+					<artifact name="scala-library" type="jar" ext="jar" status="no" details="" size="7121818" time="0" location="/Users/hua.zhang/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.10.2.jar">
+						<origin-location is-local="false" location="file:/Users/hua.zhang/Desktop/activator-1.0.0/./repository/org.scala-lang/scala-library/2.10.2/jars/scala-library.jar"/>
 					</artifact>
 				</artifacts>
 			</revision>
