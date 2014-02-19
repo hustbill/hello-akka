@@ -4,7 +4,7 @@
 		module="hello-akka_2.10"
 		revision="1.0"
 		status="integration"
-		publication="20140212112614"
+		publication="20140218172053"
 	>
 		<description>
 		hello-akka
