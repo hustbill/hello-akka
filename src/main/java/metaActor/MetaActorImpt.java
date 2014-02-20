@@ -25,7 +25,10 @@ import akka.util.Timeout;
 
 public class MetaActorImpt {
 
-	public final static int NUMBER = 5;
+	public final static int NUMBER = 6;
+	public static int nodeNum = 5;
+	public static String registering = "";
+	public static HashMap map = new HashMap();
 
 	public enum Message {
 		DemocratVote, DemocratCountResult, RepublicanVote, RepublicanCountResult
@@ -43,40 +46,139 @@ public class MetaActorImpt {
 			}
 		}
 
-		public static class Seperate implements Serializable {
+		public static class Separate implements Serializable {
 			public List<ActorRef> ConstraintsList;
+			public ActorRef[] workerActor;
 
-			public Seperate(List<ActorRef> ConstraintsList) {
+			public Separate(ActorRef[] workerActor,
+					List<ActorRef> ConstraintsList) {
 				this.ConstraintsList = ConstraintsList;
+				this.workerActor = workerActor;
+			}
+
+			// Separate Actors in ConstraintsList
+			public static void separateActor(HashMap map,
+					ActorRef[] workerActor, List<ActorRef> ConstraintsList) {
+				System.out.println("#3 Separate Actors in ConstraintsList");
+
+				Network net = new Network();
+				IntVariable[] host = new IntVariable[NUMBER];
+				for (int i = 0; i < NUMBER; i++) {
+					host[i] = new IntVariable(net, 1, NUMBER, workerActor[i]
+							.path().name());
+					System.out.println(host[i]);
+				}
+				new NotEquals(net, host);
+
+				Solver solver = new DefaultSolver(net);
+				int count = 0;
+				for (solver.start(); solver.waitNext(); solver.resume()) {
+					Solution solution = solver.getSolution();
+					count++;
+					System.out.println("Solution " + count);
+					for (int node = 1; node <= nodeNum; node++) {
+						System.out.println("\tNode " + node + ": "
+								+ find(node, host, solution));
+					}
+					
+			
+					System.out.println();
+				}
+
+				Iterator<ActorRef> iterator_constraint = ConstraintsList
+						.iterator();
+				while (iterator_constraint.hasNext()) {
+					System.out
+							.println(iterator_constraint.next().path().name());
+				}
+
+				// print out the old map
+				System.out.print("#4 print out the old map\n");
+				Set map_ety = map.entrySet();
+				for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
+					Map.Entry ety = (Map.Entry) iter.next();				
+					System.out.println("----->" + ety.getValue());
+				}
+
 			}
 
 		}
 
-		public static class Combain implements Serializable {
-			public final String message;
+		public static class Collocate implements Serializable {
+			public List<ActorRef> ConstraintsList;
+			public ActorRef[] workerActor;
 
-			public Combain(String message) {
-				this.message = message;
+			public Collocate(ActorRef[] workerActor,
+					List<ActorRef> ConstraintsList) {
+				this.ConstraintsList = ConstraintsList;
+				this.workerActor = workerActor;
+			}
+
+			public static void collocateActor(HashMap map,
+					ActorRef[] workerActor, List<ActorRef> ConstraintsList) {
+
+				System.out
+						.println("#3 Collocate constraints in ConstraintsList");
+
+				Network net = new Network();
+				IntVariable[] host = new IntVariable[NUMBER];
+				for (int i = 0; i < NUMBER; i++) {
+					host[i] = new IntVariable(net, 1, NUMBER, workerActor[i]
+							.path().name());
+					System.out.println(host[i]);
+
+				}
+				new NotEquals(net, host);
+				Solver solver = new DefaultSolver(net);
+				int count = 0;
+				for (solver.start(); solver.waitNext(); solver.resume()) {
+					Solution solution = solver.getSolution();
+					count++;
+					System.out.println("Solution " + count);
+					for (int node = 1; node <= nodeNum; node++) {
+						System.out.println("\tNode " + node + ": "
+								+ find(node, host, solution));
+					}
+					System.out.println();
+				}
+
+				Iterator<ActorRef> iterator_constraint = ConstraintsList
+						.iterator();
+				while (iterator_constraint.hasNext()) {
+					System.out
+							.println(iterator_constraint.next().path().name());
+				}
+
+				// print out the old map
+				System.out.print("#4 print out the old map\n");
+				Set map_ety = map.entrySet();
+				for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
+					Map.Entry ety = (Map.Entry) iter.next();
+					System.out.println("----->" + ety.getValue());
+				}
 			}
 		}
-
-		String registering = "";
-		public HashMap map = new HashMap();
 
 		public void onReceive(Object message) throws Exception {
 			if (message instanceof Register) {
-				registering = "Register, " + ((Register) message).who;
+				registering = "Register " + ((Register) message).who;
 				// add the Actor sender() into HashMap
 				map.put(getSender().path(), getSender().path().name());
-				// print out the old map
-				// System.out.println(map +"\n");
 				System.out.print("\n" + registering);
-			} else if (message instanceof Seperate) {
-				// Send the current greeting back to the sender
-				System.out.print("\n Seperate!\n" + getSender());
-				// ((Seperate) message).seperate(map, ((Seperate)
-				// message).ConstraintsList);
-				seperate(map, ((Seperate) message).ConstraintsList);
+			} else if (message instanceof Separate) {
+				// Send the Separate greeting back to the sender
+				System.out.print("\n Separate!\n" + getSender());
+				Separate.separateActor(map,
+						((Separate) message).workerActor,
+						((Separate) message).ConstraintsList);
+
+			} else if (message instanceof Collocate) {
+				// Send the Collocate greeting back to the sender
+				System.out.print("\n Collocate!\n" + getSender());
+				Collocate.collocateActor(map,
+						((Collocate) message).workerActor,
+						((Collocate) message).ConstraintsList);
+
 			} else
 				unhandled(message);
 		}
@@ -115,41 +217,19 @@ public class MetaActorImpt {
 			}
 
 			// recreate the newMap with the constraints.
-			
+
 		}
 
 	}
 
-	public static void seperate(HashMap map, List<ActorRef> ConstraintsList) {
-
-		System.out.println("#3 seperate constraints in ConstraintsList");
-		Iterator<ActorRef> iterator_constraint = ConstraintsList.iterator();
-		while (iterator_constraint.hasNext()) {
-			System.out.println(iterator_constraint.next().path().name());
-		}
-
-		// print out the old map
-		System.out.print("#4 print out the old map\n");
-
-		Set map_ety = map.entrySet();
-
-		for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
-			Map.Entry ety = (Map.Entry) iter.next();
-			// System.out.println(ety.getKey() + "====" + ety.getValue());
-			System.out.println("----->" + ety.getValue());
-		}
-
-	}
-
-	
 	static void rightOf(IntVariable v1, IntVariable v2) {
 		v1.equals(v2.add(1));
 	}
-	
+
 	static void nextTo(IntVariable v1, IntVariable v2) {
 		v1.subtract(v2).abs().equals(1);
 	}
-	
+
 	static String find(int value, IntVariable[] vs, Solution solution) {
 		for (IntVariable v : vs) {
 			if (solution.getIntValue(v) == value) {
@@ -158,9 +238,59 @@ public class MetaActorImpt {
 		}
 		return null;
 	}
-	
-	
+
+	public static ActorRef[] crtRegularActors(ActorSystem system,
+			ActorRef metaActor, int num) {
+
+		final ActorRef workerActor[] = new ActorRef[num];
+		String[] workerNameList = new String[num];
+		for (int i = 0; i < num; i++) {
+			workerNameList[i] = "Worker" + i;
+			workerActor[i] = system.actorOf(Props.create(WorkerActor.class),
+					workerNameList[i]);
+			metaActor.tell(new MetaActorImpt.MetaActor.Register(
+					workerNameList[i]), workerActor[i]);
+
+		}
+
+		return workerActor;
+
+	}
+
+	public static ActorRef[] crtMetaActor() {
+
+		return null;
+
+	}
+
 	public static void main(String[] args) throws Exception {
+
+		// Create the 'helloakka' actor system
+		final ActorSystem system = ActorSystem.create("helloakka");
+		// Create the MetaActor
+		final ActorRef metaActor = system.actorOf(
+				Props.create(MetaActor.class), "metaActor");
+		ActorRef[] workerActors = crtRegularActors(system, metaActor, NUMBER);
+
+		// Separate the actors based on ConstraintsList
+		List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
+				workerActors[5], workerActors[3], workerActors[2] });
+		metaActor.tell(new MetaActorImpt.MetaActor.Separate(workerActors,
+				ConstraintsList), workerActors[2]);
+
+		// Collocate the actors based on ConstraintsList
+		metaActor.tell(new MetaActorImpt.MetaActor.Collocate(workerActors,
+				ConstraintsList), workerActors[2]);
+
+		// List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
+		// democratActor[5], republicanActor[3], workerActor[2] });
+		//
+		// metaActor.tell(new MetaActorImpt.MetaActor.Separate(ConstraintsList),
+		// workerActor[2]);
+
+	}
+
+	public static void main_2(String[] args) throws Exception {
 
 		String greeting = "";
 		// Create the 'helloakka' actor system
@@ -189,17 +319,7 @@ public class MetaActorImpt {
 					republicanNameList[i]), republicanActor[i]);
 		}
 
-		final ActorRef workerActor[] = new ActorRef[NUMBER];
-		String[] workerNameList = new String[NUMBER];
-		for (int i = 0; i < NUMBER; i++) {
-			workerNameList[i] = "Worker" + i;
-			workerActor[i] = system.actorOf(Props.create(WorkerActor.class),
-					workerNameList[i]);
-			metaActor.tell(new MetaActorImpt.MetaActor.Register(
-					workerNameList[i]), workerActor[i]);
-
-		}
-
+		ActorRef[] workerActor = crtRegularActors(system, metaActor, NUMBER);
 		// Create several helloActors
 		final ActorRef helloActor[] = new ActorRef[NUMBER];
 		String[] helloNameList = new String[NUMBER];
@@ -230,64 +350,69 @@ public class MetaActorImpt {
 		IntVariable[] ext = new IntVariable[NUMBER];
 
 		for (int i = 0; i < NUMBER; i++) {
-			host[i] = new IntVariable(net, 1, NUMBER, 
-					workerActor[i].path().name());	
+			host[i] = new IntVariable(net, 1, NUMBER, workerActor[i].path()
+					.name());
 			System.out.println(host[i]);
-		
-			
+
 		}
 		for (int i = 0; i < NUMBER; i++) {
-			computation[i] = new IntVariable(net, 1, NUMBER, 
-											democratActor[i].path().name());
-			
+			computation[i] = new IntVariable(net, 1, NUMBER, democratActor[i]
+					.path().name());
+
 		}
 		for (int i = 0; i < NUMBER; i++) {
-			data[i] = new IntVariable(net, 1, NUMBER, 
-										republicanActor[i].path().name());
+			data[i] = new IntVariable(net, 1, NUMBER, republicanActor[i].path()
+					.name());
 		}
 		for (int i = 0; i < NUMBER; i++) {
-			domain[i] = new IntVariable(net, 1, NUMBER, 
-											helloActor[i].path().name());
-			//domain[i].equals(i); 
+			domain[i] = new IntVariable(net, 1, NUMBER, helloActor[i].path()
+					.name());
+			// domain[i].equals(i);
 		}
 		for (int i = 0; i < NUMBER; i++) {
-			ext[i] = new IntVariable(net, 1, NUMBER, 
-										worldActor[i].path().name());
-			//ext[i].equals(i);
-		}		
-		
-			
+			ext[i] = new IntVariable(net, 1, NUMBER, worldActor[i].path()
+					.name());
+			// ext[i].equals(i);
+		}
+
 		new NotEquals(net, host);
 		new NotEquals(net, computation);
 		new NotEquals(net, data);
 		new NotEquals(net, domain);
 		new NotEquals(net, ext);
-		
+
 		// The host 1-n lives in the Node1 to Node-n.
-		
+
 		host[0].equals(1);
-    	host[1].equals(2);
+		host[1].equals(2);
 		host[2].equals(3);
 		host[3].equals(4);
 		host[4].equals(5);
-		
-		
+
 		domain[0].equals(1);
 		domain[1].equals(2);
 		domain[2].equals(3);
 		domain[3].equals(4);
 		domain[4].equals(5);
-		
-		
-		//The input constraints 
+
+		// The extension e1-e5 lives in the Node1 to Node5.
+		ext[0].equals(1);
+		ext[1].equals(2);
+		ext[2].equals(3);
+		ext[3].equals(4);
+		ext[4].equals(5);
+
+		// The input constraints
+		data[4].notEquals(1);
+		computation[1].notEquals(1);
 		// The b1 lives in the a1 node.
 		computation[0].equals(host[0]);
 		// The computation b3 need data c2.
 		computation[2].equals(data[1]);
 		// The b5 domains d5.
-		computation[3].equals(domain[3]);		    
+		computation[4].equals(domain[4]);
 		// the a2 node need data c1.
-		data[3].equals(host[3]);
+		data[0].equals(host[1]);
 		// the a5 node need data c3.
 		data[4].equals(host[2]);
 
@@ -298,38 +423,28 @@ public class MetaActorImpt {
 			count++;
 			System.out.println("Solution " + count);
 			for (int node = 1; node <= NUMBER; node++) {
-				System.out.println("\tNode " + node
-						+ ": " + find(node, host, solution)
-						+ ", " + find(node, computation, solution)
-						+ ", " + find(node, data, solution)
-						+ ", " + find(node, domain, solution)
-						+ ", " + find(node, ext, solution)
-						);
+				System.out.println("\tNode " + node + ": "
+						+ find(node, host, solution) + ", "
+						+ find(node, computation, solution) + ", "
+						+ find(node, data, solution) + ", "
+						+ find(node, domain, solution) + ", "
+						+ find(node, ext, solution));
 			}
 			System.out.println();
 		}
 
-		
-//		List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
-//				democratActor[5], republicanActor[3], workerActor[2] });
-//
-//		metaActor.tell(new MetaActorImpt.MetaActor.Seperate(ConstraintsList),
-//				workerActor[2]);
+		// List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
+		// democratActor[5], republicanActor[3], workerActor[2] });
+		//
+		// metaActor.tell(new MetaActorImpt.MetaActor.Separate(ConstraintsList),
+		// workerActor[2]);
 
 		/*
 		 * ConstraintsList = Arrays.asList(new ActorRef[] { democratActor,
-		 * workerActor1[i] }); // seperate(HashMap map,List<ActorRef>
-		 * ConstraintsList ) // seperate( metaActor, ConstraintsList );
-		 * metaActor.tell(new MetaActorImpt.MetaActor.Seperate(ConstraintsList),
+		 * workerActor1[i] }); // Separate(HashMap map,List<ActorRef>
+		 * ConstraintsList ) // Separate( metaActor, ConstraintsList );
+		 * metaActor.tell(new MetaActorImpt.MetaActor.Separate(ConstraintsList),
 		 * workerActor1[i]);
-		 */
-
-		/*
-		 * List<ActorRef> ActorsList= Arrays.asList(new ActorRef[] {
-		 * democratActor, republicanActor, workerActor });
-		 * 
-		 * List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
-		 * democratActor, republicanActor });
 		 */
 
 		// iterator loop
@@ -413,7 +528,7 @@ public class MetaActorImpt {
 		// metaActor.tell(new MetaActorImpt.MetaActor.Register("W"),
 		// workerActor);
 
-		// seperate(HashMap map,List<ActorRef> ConstraintsList );
+		// Separate(HashMap map,List<ActorRef> ConstraintsList );
 
 		/*
 		 * ActorRef actor1 = system.actorOf(Props.create(Worker.class),
