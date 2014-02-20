@@ -68,11 +68,9 @@ public class MetaActorImpt {
 
 		public void onReceive(Object message) throws Exception {
 			if (message instanceof Register) {
-				registering = "Register, " + ((Register) message).who;
+				registering = "Register " + ((Register) message).who;
 				// add the Actor sender() into HashMap
 				map.put(getSender().path(), getSender().path().name());
-				// print out the old map
-				// System.out.println(map +"\n");
 				System.out.print("\n" + registering);
 			} else if (message instanceof Seperate) {
 				// Send the current greeting back to the sender
@@ -281,19 +279,28 @@ public class MetaActorImpt {
 		domain[3].equals(4);
 		domain[4].equals(5);
 		
+		// The extension e1-e5 lives in the Node1 to Node5.
+		ext[0].equals(1);
+		ext[1].equals(2);
+		ext[2].equals(3);
+		ext[3].equals(4);
+		ext[4].equals(5);
 		
 		//The input constraints 
+		data[4].notEquals(1);
+		computation[1].notEquals(1);
 		// The b1 lives in the a1 node.
 		computation[0].equals(host[0]);
 		// The computation b3 need data c2.
 		computation[2].equals(data[1]);
 		// The b5 domains d5.
-		computation[3].equals(domain[3]);		    
+		computation[4].equals(domain[4]);		    
 		// the a2 node need data c1.
-		data[3].equals(host[3]);
+		data[0].equals(host[1]);
 		// the a5 node need data c3.
 		data[4].equals(host[2]);
-
+		
+	
 		Solver solver = new DefaultSolver(net);
 		int count = 0;
 		for (solver.start(); solver.waitNext(); solver.resume()) {
@@ -327,13 +334,6 @@ public class MetaActorImpt {
 		 * workerActor1[i]);
 		 */
 
-		/*
-		 * List<ActorRef> ActorsList= Arrays.asList(new ActorRef[] {
-		 * democratActor, republicanActor, workerActor });
-		 * 
-		 * List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
-		 * democratActor, republicanActor });
-		 */
 
 		// iterator loop
 		/*
