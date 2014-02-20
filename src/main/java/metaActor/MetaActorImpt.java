@@ -13,6 +13,7 @@ import CSP.Network;
 import CSP.NotEquals;
 import CSP.Solution;
 import CSP.Solver;
+import akka.actor.ActorPath;
 import akka.actor.Address;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -28,7 +29,7 @@ public class MetaActorImpt {
 	public final static int NUMBER = 6;
 	public static int nodeNum = 5;
 	public static String registering = "";
-	public static HashMap map = new HashMap();
+	public static HashMap<ActorPath, String> map = new HashMap<ActorPath, String>();
 
 	public enum Message {
 		DemocratVote, DemocratCountResult, RepublicanVote, RepublicanCountResult
@@ -57,7 +58,7 @@ public class MetaActorImpt {
 			}
 
 			// Separate Actors in ConstraintsList
-			public static void separateActor(HashMap map,
+			public static void separateActor(HashMap<ActorPath, String> map,
 					ActorRef[] workerActor, List<ActorRef> ConstraintsList) {
 				System.out.println("#3 Separate Actors in ConstraintsList");
 
@@ -94,8 +95,8 @@ public class MetaActorImpt {
 
 				// print out the old map
 				System.out.print("#4 print out the old map\n");
-				Set map_ety = map.entrySet();
-				for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
+				Set<?> map_ety = map.entrySet();
+				for (Iterator<?> iter = map_ety.iterator(); iter.hasNext();) {
 					Map.Entry ety = (Map.Entry) iter.next();				
 					System.out.println("----->" + ety.getValue());
 				}
@@ -114,7 +115,7 @@ public class MetaActorImpt {
 				this.workerActor = workerActor;
 			}
 
-			public static void collocateActor(HashMap map,
+			public static void collocateActor(HashMap<ActorPath, String> map,
 					ActorRef[] workerActor, List<ActorRef> ConstraintsList) {
 
 				System.out
@@ -151,8 +152,8 @@ public class MetaActorImpt {
 
 				// print out the old map
 				System.out.print("#4 print out the old map\n");
-				Set map_ety = map.entrySet();
-				for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
+				Set<?> map_ety = map.entrySet();
+				for (Iterator<?> iter = map_ety.iterator(); iter.hasNext();) {
 					Map.Entry ety = (Map.Entry) iter.next();
 					System.out.println("----->" + ety.getValue());
 				}
@@ -203,7 +204,7 @@ public class MetaActorImpt {
 			return null;
 		}
 
-		public static void cooperation(HashMap map,
+		public static void cooperation(HashMap<?, ?> map,
 				List<ActorRef> ConstraintsList) {
 			// print out the old map
 			System.out.println("#1.2print out the map");
