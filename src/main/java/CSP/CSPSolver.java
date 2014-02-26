@@ -51,9 +51,9 @@ public class CSPSolver {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		relationExample();
-//	}
+	public static void main(String[] args) {
+		relationExample();
+	}
 	
 	static int numberOfJobs;
 	static int numberOfMachines;
@@ -429,7 +429,7 @@ public class CSPSolver {
 		return net;
 	}
 
-	public static void main(String[] args) {
+	public static void main2(String[] args) {
 		String[] problem = {"ft06", "ft10", "la40","swv20", "abz08", "ta44" };
 		
 		
@@ -450,30 +450,26 @@ public class CSPSolver {
 		if (i < args.length)
 			timeout = Integer.parseInt(args[i++]) * 1000;
 		
+		for(int k=1; k< 20; k++) {  // run k times
+			 System.out.println("----------Run k=" + k +" times----------");
 		for(int j=0; j< 6; j++) {
 			Network network = jssp(problem[j]);
 				if (network == null)
 					return;
 				int opt = Solver.MINIMIZE;
-				Solver solver = null;
-
-		
+				Solver solver = null;		
 			if (name.equals("bb")) {
 				solver = new DefaultSolver((Network) network.clone(), opt, name);
-	
 			}	
-		
-		//Monitor monitor = new Monitor();
-		// monitor.setX(0, (int)(timeout/1000));
-		//solver.setMonitor(monitor);
-		//Solution solution = solver.findBest(timeout);
 			Solution solution = solver.findFirst();
 			long time = solver.getElapsedTime();
-			System.out.println("First = " + solution.getObjectiveIntValue());
-		System.out.println("Start backtracking solve problem "+ problem[j] + ", time = " + time
-				+ " msecs");
+			//System.out.println("First = " + solution.getObjectiveIntValue());
+//		System.out.println("Start backtracking solve problem "+ problem[j] + ", time = " + time
+//				+ " msecs");
+		System.out.println(  problem[j] + ", time = " + time + " msecs");
 		
 		}
+	 }
 		
 	}
 //		
