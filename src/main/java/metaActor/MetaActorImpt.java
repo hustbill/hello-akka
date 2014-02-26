@@ -409,14 +409,7 @@ public class MetaActorImpt {
 		//
 		// metaActor.tell(new MetaActorImpt.MetaActor.Separate(ConstraintsList),
 		// workerActor[2]);
-
-		/*
-		 * ConstraintsList = Arrays.asList(new ActorRef[] { democratActor,
-		 * workerActor1[i] }); // Separate(HashMap map,List<ActorRef>
-		 * ConstraintsList ) // Separate( metaActor, ConstraintsList );
-		 * metaActor.tell(new MetaActorImpt.MetaActor.Separate(ConstraintsList),
-		 * workerActor1[i]);
-		 */
+	
 
 		// iterator loop
 		/*
