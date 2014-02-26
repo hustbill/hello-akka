@@ -11,6 +11,7 @@ import CSP.DefaultSolver;
 import CSP.IntVariable;
 import CSP.Network;
 import CSP.NotEquals;
+import CSP.Relation;
 import CSP.Solution;
 import CSP.Solver;
 import akka.actor.ActorPath;
@@ -258,8 +259,54 @@ public class MetaActorImpt {
 		//
 		// metaActor.tell(new MetaActorImpt.MetaActor.Separate(ConstraintsList),
 		// workerActor[2]);
+		
+		
+		//constraint list 
+		//get the data and constraints.
+		
 
 	}
+	
+	
+	static void runExample(Network net, int opt) {
+		System.out.println("# Problem");
+		System.out.println(net);
+		System.out.println("# Solutions");
+		Solver solver = new DefaultSolver(net, opt);
+		for (solver.start(); solver.waitNext(); solver.resume()) {
+			Solution solution = solver.getSolution();
+			System.out.println(solution);
+		}
+		solver.stop();
+		long count = solver.getCount();
+		long time = solver.getElapsedTime();
+		System.out.println("Found " + count + " solutions in " + time + " milli seconds");
+		System.out.println();
+	}
+
+
+	static void relationExample() {
+		for(int i=0; i< 100;i++) {
+		Network net = new Network();
+		IntVariable x = new IntVariable(net,"x" );
+		IntVariable y = new IntVariable(net, "y");
+		boolean[][] rel = {
+				{ false,  true, false, false },
+				{ false, false, false,  true },
+				{  true, false, false, false },
+				{ false,  true, false, false },
+				{ false, false, false,  true },
+				{  true, false, false, false },
+				{ false, false,  true, false }
+		};
+		new Relation(net, x, rel, y);
+		runExample(net, Solver.DEFAULT);
+		}
+	}
+	
+//	public static void main(String[] args) {
+//		relationExample();
+//	}
 
 	public static void main_2(String[] args) throws Exception {
 
