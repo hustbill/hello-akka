@@ -46,7 +46,7 @@ public class CSPSolver {
 				{  true, false, false, false },
 				{ false, false,  true, false }
 		};
-		new Relation(net, x, rel, y);
+		//new Relation(net, x, rel, y);
 		runExample(net, Solver.DEFAULT);
 		}
 	}

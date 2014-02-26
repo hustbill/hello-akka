@@ -261,7 +261,7 @@ public class MetaActorImpt {
 
 	}
 
-	public static void main_2(String[] args) throws Exception {
+	public static void main_constraint(String[] args) throws Exception {
 
 		String greeting = "";
 		// Create the 'helloakka' actor system
