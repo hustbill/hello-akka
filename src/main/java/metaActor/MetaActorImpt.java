@@ -149,7 +149,7 @@ public class MetaActorImpt {
 				}
 
 				// print out the old map
-				System.out.print("#4 print out the old map\n");
+				System.out.print("#4 print out the map\n");
 				Set<?> map_ety = map.entrySet();
 				for (Iterator<?> iter = map_ety.iterator(); iter.hasNext();) {
 					Map.Entry ety = (Map.Entry) iter.next();
