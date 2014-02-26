@@ -13,6 +13,7 @@ import CSP.Network;
 import CSP.NotEquals;
 import CSP.Solution;
 import CSP.Solver;
+import akka.actor.ActorPath;
 import akka.actor.Address;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -31,7 +32,7 @@ public class MetaActorImpt {
 	public final static int NUMBER = 6;
 	public static int nodeNum = 5;
 	public static String registering = "";
-	public static HashMap map = new HashMap();
+	public static HashMap<ActorPath, String> map = new HashMap<ActorPath, String>();
 
 	public enum Message {
 		DemocratVote, DemocratCountResult, RepublicanVote, RepublicanCountResult
@@ -41,9 +42,7 @@ public class MetaActorImpt {
 
 		// Store the name of Actor when Actor was initialized
 		public static class Register implements Serializable {
-
 			public final String who;
-
 			public Register(String who) {
 				this.who = who;
 			}
@@ -60,7 +59,7 @@ public class MetaActorImpt {
 			}
 
 			// Separate Actors in ConstraintsList
-			public static void separateActor(HashMap map,
+			public static void separateActor(HashMap<ActorPath, String> map,
 					ActorRef[] workerActor, List<ActorRef> ConstraintsList) {
 				System.out.println("#3 Separate Actors in ConstraintsList");
 
@@ -83,11 +82,8 @@ public class MetaActorImpt {
 						System.out.println("\tNode " + node + ": "
 								+ find(node, host, solution));
 					}
-					
-			
 					System.out.println();
 				}
-
 				Iterator<ActorRef> iterator_constraint = ConstraintsList
 						.iterator();
 				while (iterator_constraint.hasNext()) {
@@ -97,9 +93,9 @@ public class MetaActorImpt {
 
 				// print out the old map
 				System.out.print("#4 print out the old map\n");
-				Set map_ety = map.entrySet();
-				for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
-					Map.Entry ety = (Map.Entry) iter.next();				
+				Set<?> map_ety = map.entrySet();
+				for (Iterator<?> iter = map_ety.iterator(); iter.hasNext();) {
+					Map.Entry ety = (Map.Entry) iter.next();
 					System.out.println("----->" + ety.getValue());
 				}
 
@@ -117,7 +113,7 @@ public class MetaActorImpt {
 				this.workerActor = workerActor;
 			}
 
-			public static void collocateActor(HashMap map,
+			public static void collocateActor(HashMap<ActorPath, String> map,
 					ActorRef[] workerActor, List<ActorRef> ConstraintsList) {
 
 				System.out
@@ -154,8 +150,8 @@ public class MetaActorImpt {
 
 				// print out the old map
 				System.out.print("#4 print out the old map\n");
-				Set map_ety = map.entrySet();
-				for (Iterator iter = map_ety.iterator(); iter.hasNext();) {
+				Set<?> map_ety = map.entrySet();
+				for (Iterator<?> iter = map_ety.iterator(); iter.hasNext();) {
 					Map.Entry ety = (Map.Entry) iter.next();
 					System.out.println("----->" + ety.getValue());
 				}
@@ -171,8 +167,7 @@ public class MetaActorImpt {
 			} else if (message instanceof Separate) {
 				// Send the Separate greeting back to the sender
 				System.out.print("\n Separate!\n" + getSender());
-				Separate.separateActor(map,
-						((Separate) message).workerActor,
+				Separate.separateActor(map, ((Separate) message).workerActor,
 						((Separate) message).ConstraintsList);
 
 			} else if (message instanceof Collocate) {
@@ -206,23 +201,6 @@ public class MetaActorImpt {
 			return null;
 		}
 
-		public static void cooperation(HashMap map,
-				List<ActorRef> ConstraintsList) {
-			// print out the old map
-			System.out.println("#1.2print out the map");
-			System.out.println(map);
-			System.out.println();
-
-			System.out.println("#2 all constraints in ConstraintsList");
-			Iterator<ActorRef> iterator_constraint = ConstraintsList.iterator();
-			while (iterator_constraint.hasNext()) {
-				System.out.println(iterator_constraint.next());
-			}
-
-			// recreate the newMap with the constraints.
-
-		}
-
 	}
 
 	static void rightOf(IntVariable v1, IntVariable v2) {
@@ -253,21 +231,11 @@ public class MetaActorImpt {
 					workerNameList[i]);
 			metaActor.tell(new MetaActorImpt.MetaActor.Register(
 					workerNameList[i]), workerActor[i]);
-
 		}
-
 		return workerActor;
-
-	}
-
-	public static ActorRef[] crtMetaActor() {
-
-		return null;
-
 	}
 
 	public static void main(String[] args) throws Exception {
-
 		// Create the 'helloakka' actor system
 		final ActorSystem system = ActorSystem.create("helloakka");
 		// Create the MetaActor
