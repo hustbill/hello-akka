@@ -75,7 +75,7 @@ public class Network implements Cloneable {
 	 * @throws IllegalArgumentException
 	 *             if <tt>v</tt> is already added to another network
 	 */
-	protected Variable add(Variable v) throws IllegalArgumentException {
+	public Variable add(Variable v) throws IllegalArgumentException {
 		if (!variables.contains(v)) {
 			if (v.getIndex() >= 0) {
 				throw new IllegalArgumentException();
