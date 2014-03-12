@@ -292,45 +292,6 @@ public class MetaActorImpt {
 
 	}
 
-	private void verifyCSP(String[] args) {
-		Network net = new Network();
-		int nodeNum = 55;
-		int NUMBER = 100; // the number of actors
-		String[] actorList = new String[NUMBER];
-		IntVariable[] actorVarArr = new IntVariable[NUMBER];
-		for (int i = 0; i < NUMBER; i++) {
-			actorList[i] = "actor" + i;
-			actorVarArr[i] = new IntVariable(net, 1, nodeNum, actorList[i]);
-			net.add(actorVarArr[i]);
-		}
-
-		int count = 0;
-		int countOfConstraints = 0;
-		// Separate Constraint List
-		for (int i = 0; i < 10; i++) {
-			for (int j = i + 1; j < 20; j++) {
-				new NotEquals(net, actorVarArr[i], actorVarArr[j]);
-				countOfConstraints++;
-			}
-
-		}
-		// Collocate constraints list.
-		for (int i = 20; i < 50; i++) {
-			for (int j = i + 1; j < 50; j++) {
-				new NotEquals(net, actorVarArr[i], actorVarArr[j]);
-				countOfConstraints++;
-			}
-		}
-		// Collocate constraints list.
-		for (int i = 50; i < NUMBER; i++) {
-			for (int j = i + 1; j < NUMBER - 1; j++) {
-				new NotEquals(net, actorVarArr[i], actorVarArr[j]);
-				countOfConstraints++;
-			}
-		}
-		System.out.println("Constraints Number= " + countOfConstraints);
-		runExample(net); // output the result.
-	}
 
 	@SuppressWarnings("unchecked")
 	@Test
