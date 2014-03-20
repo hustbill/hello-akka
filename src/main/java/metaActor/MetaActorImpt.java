@@ -141,6 +141,7 @@ public class MetaActorImpt {
 		return null;
 	}
 
+	//create the regular actors with specific number
 	public static ActorRef[] crtRegularActors(ActorSystem system,
 			ActorRef metaActor, int num) {
 
@@ -180,98 +181,89 @@ public class MetaActorImpt {
 		// System.out.println();
 		return time;
 	}
-
-
-	// Create the constraint list for specific number of Actors
-	// for obtain Experiment data
-//	static List<ActorRef> getConstraintList(ActorRef[] workerActors,
-//			int numOfNodes) {
-//
-//		int numOfActors = workerActors.length;
-//		List<ActorRef> ConstraintsList = Arrays.asList(new ActorRef[] {
-//				workerActors[5], workerActors[3], workerActors[2] });
-//		// System.out.println("#3 Separate Actors in ConstraintsList");
-//
-//		Network net = new Network();
-//		IntVariable[] actorVarArr = new IntVariable[numOfActors];
-//		for (int i = 0; i < numOfActors; i++) {
-//			actorVarArr[i] = new IntVariable(net, 1, numOfNodes,
-//					workerActors[i].path().name());
-//			net.add(actorVarArr[i]);
-//		}
-//
-//		int countOfConstraints = 0;
-//		// Separate Constraint List
-//		for (int i = 0; i < numOfActors / 5; i++) {
-//			for (int j = i + 1; j < numOfActors / 5; j++) {
-//				new NotEquals(net, actorVarArr[i], actorVarArr[j]);
-//				countOfConstraints++;
-//			}
-//
-//		}
-//		// Separate constraints list.
-//		for (int i = numOfActors / 5; i < 2 * numOfActors / 5; i++) {
-//			for (int j = i + 1; j < 2 * numOfActors / 5; j++) {
-//				new NotEquals(net, actorVarArr[i], actorVarArr[j]);
-//				countOfConstraints++;
-//			}
-//		}
-//		// Separate constraints list.
-//		for (int i = 4 * numOfActors / 5; i < numOfActors; i++) {
-//			for (int j = i + 1; j < numOfActors - 1; j++) {
-//				new NotEquals(net, actorVarArr[i], actorVarArr[j]);
-//				countOfConstraints++;
-//			}
-//		}
-//		System.out.println("Constraints Number= " + countOfConstraints);
-//		long time = runExample(net); // output the result.
-//		System.out.println("time = " + time + " milli seconds\n");
-//
-//		return ConstraintsList;
-//
-//	}
 	
 	public static void main(String[] args) throws Exception {
 
 		// Do experiments
+		
+		
+	  	ActorRef[] workerActors;
+		final ActorSystem system = ActorSystem.create("verifyCSP");
+		// Create the MetaActor
+		final ActorRef metaActor = system.actorOf(
+				Props.create(MetaActor.class), "metaActor");
+		
+		
 				int nRepeat = 6; // repeat times
 				//int[] numOfActors = { 100, 200, 300, 500, 700 };
-				int[] numOfActors = { 400,  500, 600, 700, 800, 900, 1000};
-				//int[] numOfNodes = { 80, 200, 280, 350, 400 };
-				int[] numOfNodes = {  200, 280, 350, 400, 500, 600, 700 };
+//				int[] numOfActors = {400,  500, 600, 700, 800, 900, 1000};
+//				//int[] numOfNodes = { 80, 200, 280, 350, 400 };
+//				int[] numOfNodes = {200, 280, 350, 400, 500, 600, 700 };
+	
+				int[] numOfConstraints= {1000, 2000, 3000, 4000, 5000, 6000, 7000 };
 				
-				int[] numOfConstraints= {  1000, 2000, 3000, 4000, 5000, 6000, 7000 };
+				
+				int[] numOfNodes = {200, 300, 400, 500, 600 };
+				int[] densityArr= {1, 2 , 3, 4, 5 , 6 };
+								
+				int[] numOfActors = new int[numOfNodes.length];
+			
+				for(int i=0; i< densityArr.length; i++) {
+					System.out.print("\n\n densityArr["+i + "]= " + densityArr[i]);
+					for(int j=0; j< numOfActors.length; j++){
+						numOfActors[j] = densityArr[i] * numOfNodes[j];
+						System.out.print("\n\n nodes["+j + "]= " + numOfNodes[j]);
+						System.out.print("\t Actors["+j + "]= " + numOfActors[j]);
+						workerActors = crtRegularActors(system, metaActor,
+								numOfActors[j]);
+						for(int k=0; k< numOfConstraints.length; k++) {
+							createConstraintList(numOfActors[j],
+								numOfNodes[j] ,numOfConstraints[k], workerActors);
+						}
+
+					}
+				}
+				
+				
 				// int[] numConstraints = getConstraintsNum( numActors);
 				long[] timeArr = new long[nRepeat];
-				
-				  int firstArg =0 ;
-				if(args.length > 3 ) {
-					 try {
-					        firstArg = Integer.parseInt(args[0]);
+
+				int firstArg =0 ;
+				if(args.length > 0 ) {
+				 try {
+				        firstArg = Integer.parseInt(args[0]);
 					    } catch (NumberFormatException e) {
 					        System.err.println("Argument" + args[0] + " must be an integer.");
 					        System.exit(1);
 					    }
-					 int actorNum = Integer.parseInt(args[1]);
-					 int nodeNum = Integer.parseInt(args[2]);
-					 int constraintNum = Integer.parseInt(args[3]);
-				switch(firstArg) {
-					case 1:
-						System.out.println("Experiment : fixed actors");
-						verifyCSP1(actorNum, nodeNum, constraintNum);
-						break;
-					case 2:
-						System.out.println("Experiment: fixed notes");
-						verifyCSP2(actorNum, nodeNum, constraintNum);
-						break;      
-					case 3:
-						System.out.println("Experiment: actors/notes radio");
-						verifyCSP3(actorNum, nodeNum, constraintNum);
-						break;
-					default:
-						System.out.println("The first arg should be 0, 1 or 2! ");
-	                    break;
-				}
+				 
+//				 int actorNum = Integer.parseInt(args[1]);
+//				 int nodeNum = Integer.parseInt(args[2]);
+//				 int constraintNum = Integer.parseInt(args[3]);
+				
+				
+//				switch(firstArg) {
+//					case 1:
+//						System.out.println("Experiment : fixed actors");
+//					
+//						verifyCSP1(actorNum, nodeNum, constraintNum, workerActors);
+//						break;
+//					case 2:
+//						System.out.println("Experiment: fixed notes");
+//						workerActors = crtRegularActors(system, metaActor,
+//								actorNum);
+//						verifyCSP2(actorNum, nodeNum, constraintNum, workerActors);
+//						break;      
+//					case 3:
+//						System.out.println("Experiment: actors/notes radio");
+//						workerActors = crtRegularActors(system, metaActor,
+//								actorNum);
+//						verifyCSP3(actorNum, numOfNodes, constraintNum, workerActors);
+//						break;
+//					default:
+//						System.out.println("The first arg should be 0, 1 or 2! ");
+//	                    break;
+//				}
 				 System.exit(1);
 			}
 	}
@@ -279,25 +271,40 @@ public class MetaActorImpt {
 
 	
 	//Experiment series one  - fixed actors
-	public static void verifyCSP1(int actorNum, int nodeNum, int constraintNum ) throws Exception {
+	public static void verifyCSP1(int actorNum, int nodeNum, int constraintNum, ActorRef[] workerActors ) throws Exception {
 	
 		System.out.println("Experiment 1: fixed actors " + "actors= \t" + actorNum);
 		Network net =  createConstraintList( actorNum,
-				nodeNum ,  constraintNum);	
+				nodeNum ,  constraintNum , workerActors);	
 	}
 
 	//Experiment series two  - fixed nodes
-	public static void verifyCSP2(int actorNum, int nodeNum, int constraintNum ) throws Exception {
+	public static void verifyCSP2(int actorNum, int nodeNum, int constraintNum, ActorRef[] workerActors) throws Exception {
 		System.out.println("Experiment 2: fixed nodes " + "nodes= \t" + nodeNum);
 		Network net =  createConstraintList( actorNum,
-				nodeNum ,  constraintNum);	
+				nodeNum ,  constraintNum, workerActors);	
 	}
 
 	//fixed radio = actors/nodes 
-	public static void verifyCSP3(int actorNum, int nodeNum, int constraintNum ) throws Exception {
+	public static void verifyCSP3(int actorNum, int[] numOfNodes, int constraintNum, ActorRef[] workerActors ) throws Exception {
 		System.out.println("Experiment 3: fixed radio " + "actors/nodes= \t" + actorNum/nodeNum);
-		Network net =  createConstraintList( actorNum,
-				nodeNum ,  constraintNum);	
+		//int[] numOfNodes = { 80, 200, 280, 350, 400 };
+		//int[] numOfNodes = {  100, 200, 300, 400, 500, 600, 700 };
+		int size = numOfNodes.length;
+		int[] numOfActors= new int[size];
+		int[] d= { 1, 2 , 3 , 4, 5};
+		for(int j=0; j< d.length; j++) {
+		for(int i=1; i< numOfNodes.length; i++) {
+			
+				numOfActors[i] = d[j] * numOfNodes[i];
+				Network net =  createConstraintList( numOfActors[i],
+						numOfNodes[i] ,  constraintNum, workerActors);	
+				
+			}
+			
+		}
+		
+	
 	}
 	
 	//create the random -
@@ -309,24 +316,10 @@ public class MetaActorImpt {
 	 */
 	
 	public static Network  createConstraintList(int actorNum,
-			int nodeNum , int constraintNum) {
+			int nodeNum , int constraintNum, ActorRef[] workerActors) {
 		//ArrayList<Arralylist, String>
-		Network net = new Network();
-		
-		final ActorSystem system = ActorSystem.create("verifyCSP1");
-		// Create the MetaActor
-		final ActorRef metaActor = system.actorOf(
-				Props.create(MetaActor.class), "metaActor");
-		
-		
-		//System.out.println("numOfActors =" + actorNum);
-		//System.out.println("numOfNodes =" + nodeNum);
-
-		ActorRef[] workerActors = crtRegularActors(system, metaActor,
-				actorNum);
-		
+		Network net = new Network();		
 		IntVariable[] actorVarArr = new IntVariable[actorNum];
-		
 		
 		for (int i = 0; i < actorNum; i++) {
 			actorVarArr[i] = new IntVariable(net, 1, nodeNum,
@@ -345,9 +338,10 @@ public class MetaActorImpt {
 	        	countOfConstraints++;
 	       }
 	
-		System.out.print("Constraints Number= " + countOfConstraints);
+		System.out.print("\n Constraints Number= " + countOfConstraints);
 		long time = runExample(net); // output the result.
-		System.out.print("\t time = " + time + " milli seconds\n");
+		System.out.print("\t time = " + time + " milli seconds");
+		
 
 		return net; 
         
